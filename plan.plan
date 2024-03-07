@@ -1,0 +1,94 @@
+## User Flow
+
+1. **Sign Up / Log In**:
+
+   - User starts by either signing up for a new account or logging into an existing one.
+
+2. **Dashboard**:
+
+   - After logging in, the user is directed to their dashboard.
+
+3. **Dashboard Options**:
+
+   - From the dashboard, the user can:
+     - View their copypastes.
+     - View their groups.
+     - Create a new copypaste.
+     - Create a new group.
+
+4. **Manage Copypastes**:
+
+   - Within copypastes:
+     - User can view, edit, or delete their copypastes.
+
+5. **Manage Groups**:
+
+   - Within groups:
+     - User can view group copypastes.
+     - User can invite other users to join the group.
+     - User can leave the group or delete the group if they are the owner.
+
+6. **Log Out**:
+   - Finally, the user has the option to log out of their account.
+
+## User Authentication and Authorization:
+
+- Users should be able to sign up, log in, and log out.
+- Authentication will ensure that each user can only access their own copypastes and groups, providing security and privacy.
+- Authorization will control access to certain features such as creating groups, inviting users to groups, etc.
+
+## Database Schema:
+
+- You'll need a database to store users, copypastes, and groups. Consider using a relational database like PostgreSQL or MySQL.
+- Here's a basic schema outline:
+  - **User**:
+    - id (primary key)
+    - username
+    - email
+    - password (hashed)
+  - **Copypaste**:
+    - id (primary key)
+    - title
+    - categories
+    - content
+    - user_id (foreign key referencing User)
+  - **Group**:
+    - id (primary key)
+    - name
+  - **GroupMember**:
+    - id (primary key)
+    - group_id (foreign key referencing Group)
+    - user_id (foreign key referencing User)
+
+## Backend API:
+
+- You'll need endpoints to handle CRUD operations for copypastes and groups.
+- Endpoints should also manage user authentication and authorization.
+- Sample endpoints:
+  - `POST /api/register` - Register a new user.
+  - `POST /api/login` - Log in an existing user.
+  - `GET /api/copypastes` - Retrieve copypastes for the authenticated user.
+  - `POST /api/copypastes` - Create a new copypaste.
+  - `GET /api/groups` - Retrieve groups for the authenticated user.
+  - `POST /api/groups` - Create a new group.
+  - `POST /api/groups/:groupId/invite` - Invite a user to a group.
+  - And more as needed.
+
+## Frontend Development with SvelteKit:
+
+- Create pages and components for user authentication, copypastes, groups, etc.
+- Use SvelteKit's routing capabilities to navigate between different parts of the application.
+- Implement forms for creating copypastes, creating groups, inviting users, etc.
+- Handle user authentication and authorization on the client-side.
+
+## User Interface and Experience:
+
+- Design an intuitive and user-friendly interface that allows users to easily manage their copypastes and groups.
+- Implement validation for forms to ensure data integrity.
+- Provide feedback to users for successful operations and error handling.
+
+## Testing and Deployment:
+
+- Test your application thoroughly to ensure functionality and security.
+- Deploy your application to a hosting platform like Vercel, Netlify, or Heroku.
+- Monitor your application for any issues and perform regular maintenance.
