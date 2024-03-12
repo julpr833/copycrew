@@ -58,10 +58,10 @@
 			class="bg-slate-700 text-white dark:bg-slate-900 absolute top-0 right-0 h-full"
 		>
 			<ul class="mt-16 mx-6 flex flex-col items-start font-bold text-nowrap">
-				<li class="py-2"><a href="/login">Login</a></li>
-				<li class="py-2"><a href="/signup">Sign Up</a></li>
+				<li class="py-2"><a on:click={() => (showSidebar = false)} href="/login">Login</a></li>
+				<li class="py-2"><a on:click={() => (showSidebar = false)} href="/signup">Sign Up</a></li>
 				<li class="flex gap-2 py-2">
-					<a href="/copypastes">My copypastes</a><svg
+					<a on:click={() => (showSidebar = false)} href="/copypastes">My copypastes</a><svg
 						width="24"
 						height="24"
 						viewBox="0 0 24 24"
@@ -81,7 +81,7 @@
 					</svg>
 				</li>
 				<li class="flex gap-2 py-2">
-					<a href="/groups">Groups</a>
+					<a on:click={() => (showSidebar = false)} href="/groups">Groups</a>
 					<svg
 						width="24"
 						height="24"

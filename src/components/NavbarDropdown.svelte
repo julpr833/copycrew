@@ -105,6 +105,12 @@
 		cursor: pointer;
 		padding-block: 8px;
 		padding-inline: 4px;
+		transition: color;
+		transition-duration: 300ms;
+	}
+
+	.dashboard-dropdown li:hover {
+		color: #b187e7;
 	}
 
 	.dashboard-dropdown li:not(:last-child) {
