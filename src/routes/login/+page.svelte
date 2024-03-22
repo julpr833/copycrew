@@ -38,7 +38,12 @@
 			</div>
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-1 transition-transform hover:scale-105 duration-300">
-					<input type="checkbox" name="remember" id="remember" class="my-2 cursor-pointer" />
+					<input
+						type="checkbox"
+						name="remember"
+						id="remember"
+						class="my-2 cursor-pointer accent-purple-700"
+					/>
 					<label
 						for="remember"
 						class="text-[#583d7c] dark:text-[#cdaff5] font-bold text-sm dark:font-normal cursor-pointer"
