@@ -8,3 +8,31 @@ body {
 	overflow-x: hidden;
 	font-family: 'Inter', sans-serif;
 }
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background: radial-gradient(
+			circle at center,
+			#242435 0%,
+			#212145 50%,
+			#2d3449 60%,
+			#171731 100%
+		);
+		background-size: 400% 400%;
+		animation: 17s ease infinite backgroundAnimation;
+	}
+}
+
+@keyframes backgroundAnimation {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
