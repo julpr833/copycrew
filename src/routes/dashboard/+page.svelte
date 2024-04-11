@@ -1,12 +1,23 @@
 <!-- dashboard -->
-<section id="dashboard" class="h-[92.6vh]">
-	<div class="flex flex-col w-full items-center">
-		<h2 class="text-black dark:text-white font-bold text-3xl mt-12">
-			Welcome, <span class="text-purple-500">username</span>, what do you want to do today?
+<script>
+	import { goto } from '$app/navigation';
+
+	export let data;
+</script>
+
+<svelte:head>
+	<title>Copycrew - Dashboard</title>
+</svelte:head>
+
+<section id="dashboard">
+	<div class="flex flex-col w-full items-center mb-8">
+		<h2 class="text-black dark:text-white font-bold text-3xl mt-12 mx-12">
+			Welcome, <span class="text-purple-500">{data.user.email}</span>, what do you want to do today?
 		</h2>
-		<div class="grid grid-cols-2 grid-rows-2 gap-4 text-black dark:text-white mt-12">
-			<div
-				class="bg-slate-900 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
+		<div class="grid grid-cols-1 gap-4 text-black dark:text-white mt-12 mx-12">
+			<button
+				on:click={() => goto('/dashboard/copypastes')}
+				class="bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
 			>
 				<div class="flex gap-1 items-center text-purple-400 stroke-purple-400">
 					<svg
@@ -28,10 +39,11 @@
 					</svg>
 					<h3 class="text-xl font-bold font-sans">My copypastes</h3>
 				</div>
-				<p class="mt-4">View and edit your personal copypastes</p>
-			</div>
-			<div
-				class="bg-slate-900 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
+				<p class="mt-4 text-left">View and edit your personal copypastes</p>
+			</button>
+			<button
+				on:click={() => goto('/dashboard/groups')}
+				class="bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
 			>
 				<div class="flex gap-1 items-center text-purple-400 stroke-purple-400">
 					<svg
@@ -53,10 +65,11 @@
 					</svg>
 					<h3 class="text-xl font-bold font-sans">My groups</h3>
 				</div>
-				<p class="mt-4">View the copypastes posted in the groups you have joined</p>
-			</div>
-			<div
-				class="bg-slate-900 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
+				<p class="mt-4 text-left">View the copypastes posted in the groups you have joined</p>
+			</button>
+			<button
+				on:click={() => goto('/dashboard/groups/create')}
+				class="bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
 			>
 				<div class="flex gap-1 items-center text-purple-400 stroke-purple-400">
 					<svg
@@ -92,8 +105,8 @@
 					</svg>
 					<h3 class="text-xl font-bold font-sans">Create group</h3>
 				</div>
-				<p class="mt-4">Create a group to share copypastes between your friends</p>
-			</div>
+				<p class="mt-4 text-left">Create a group to share copypastes between your friends</p>
+			</button>
 		</div>
 	</div>
 </section>
