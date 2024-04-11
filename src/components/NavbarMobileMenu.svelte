@@ -17,6 +17,9 @@
 			}
 		};
 	}
+
+	// Props
+	export let user: UserCookieData;
 </script>
 
 <div id="mobile-menu" class="md:hidden h-5 w-5">
@@ -58,10 +61,16 @@
 			class="bg-slate-700 text-white dark:bg-slate-900 absolute top-0 right-0 h-full"
 		>
 			<ul class="mt-16 mx-6 flex flex-col items-start font-bold text-nowrap">
-				<li class="py-2"><a on:click={() => (showSidebar = false)} href="/login">Login</a></li>
-				<li class="py-2"><a on:click={() => (showSidebar = false)} href="/signup">Sign Up</a></li>
+				{#if !user}
+					<li class="py-2"><a on:click={() => (showSidebar = false)} href="/login">Login</a></li>
+					<li class="py-2"><a on:click={() => (showSidebar = false)} href="/signup">Sign Up</a></li>
+				{/if}
 				<li class="flex gap-2 py-2">
-					<a on:click={() => (showSidebar = false)} href="/copypastes">My copypastes</a><svg
+					<a
+						on:click={() => (showSidebar = false)}
+						data-sveltekit-reload
+						href="/dashboard/copypastes">My copypastes</a
+					><svg
 						width="24"
 						height="24"
 						viewBox="0 0 24 24"
@@ -81,7 +90,9 @@
 					</svg>
 				</li>
 				<li class="flex gap-2 py-2">
-					<a on:click={() => (showSidebar = false)} href="/groups">Groups</a>
+					<a on:click={() => (showSidebar = false)} data-sveltekit-reload href="/dashboard/groups"
+						>Groups</a
+					>
 					<svg
 						width="24"
 						height="24"
@@ -101,6 +112,29 @@
 						<path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
 					</svg>
 				</li>
+				{#if user}
+					<li class="flex gap-2 py-2">
+						<a on:click={() => (showSidebar = false)} data-sveltekit-reload href="/logout">Logout</a
+						>
+						<svg
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="#ffffff"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path
+								d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
+							/>
+							<path d="M9 12h12l-3 -3" />
+							<path d="M18 15l3 -3" />
+						</svg>
+					</li>
+				{/if}
 			</ul>
 		</aside>
 	{/if}
