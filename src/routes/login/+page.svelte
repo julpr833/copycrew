@@ -1,12 +1,20 @@
 <!-- login -->
-<section id="login" class="flex justify-center items-center h-[92.6vh]">
+<script lang="ts">
+	export let form;
+</script>
+
+<svelte:head>
+	<title>Copycrew - Login</title>
+</svelte:head>
+
+<section id="login" class="flex flex-col justify-center items-center h-[92.6vh]">
 	<div
 		class="login-bg flex flex-col justify-center items-center border border-black dark:border-white px-8 py-16 rounded-lg text-black dark:text-white"
 	>
 		<h2 class="text-purple-700 dark:text-purple-400 text-3xl font-bold mb-12">
 			Login to your account
 		</h2>
-		<form action="/login" method="POST" class="flex flex-col relative">
+		<form action="?/login" method="POST" class="flex flex-col relative">
 			<div class="flex flex-col mb-4 email-input">
 				<label
 					class="font-bold dark:font-normal text-sm my-1 tracking-widest transition-colors duration-300"
@@ -63,6 +71,11 @@
 			>
 		</form>
 	</div>
+	{#if form?.error}
+		<p class="pt-4 text-red-500 font-bold text-center max-w-sm text-pretty break-words text-sm">
+			{form.error}
+		</p>
+	{/if}
 </section>
 
 <style>
