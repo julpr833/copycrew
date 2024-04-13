@@ -19,7 +19,7 @@
 	export let data;
 	const { copypastes } = data;
 
-	let showAddCopypaste = true;
+	let showAddCopypaste = false;
 </script>
 
 <svelte:head>
