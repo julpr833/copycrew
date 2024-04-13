@@ -108,5 +108,22 @@
 				<p class="mt-4 text-left">Create a group to share copypastes between your friends</p>
 			</button>
 		</div>
+		<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-3/5 max-w-2xl mt-8" />
+		<div class="bg-slate-800 text-white w-full max-w-md mt-4 rounded-lg flex flex-col items-center">
+			<h2 class="text-3xl mt-2">Changelog</h2>
+			<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-full my-2" />
+			<ul class="self-baseline mx-8 mt-2 mb-4 font-mono">
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+				<li class="before:content-['>'] before:mr-2">Example change lol!</li>
+			</ul>
+		</div>
 	</div>
 </section>
