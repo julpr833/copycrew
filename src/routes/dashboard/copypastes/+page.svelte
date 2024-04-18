@@ -13,6 +13,7 @@
 				);
 			}
 		}
+
 		toasts.success('Copypaste copied succesfully');
 	};
 
@@ -156,13 +157,60 @@
 		{#if !data.error && copypastes}
 			{#each copypastes as copypaste}
 				<div
-					class="flex text-black dark:text-white bg-slate-900 flex-col p-3 m-4 rounded-lg cursor-pointer transition-transform hover:scale-95 duration-300 mt-12"
+					class="flex text-black dark:text-white bg-slate-900 flex-col p-3 m-4 rounded-lg cursor-pointer mt-12 _box-shadow-hover"
 				>
-					<h2 class="font-bold text-purple-300 mb-2 text-center">{copypaste.title}</h2>
+					<div
+						class="flex items-center text-center w-full border-b-[1.5px] border-gray-700 dark:border-gray-500 mb-1"
+					>
+						<h2 class="font-bold text-purple-300 py-1 w-full">
+							{copypaste.title}
+						</h2>
+						<button>
+							<svg
+								class="transition-colors hover:text-red-500 duration-200"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path
+									d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z"
+									stroke-width="0"
+									fill="currentColor"
+								/>
+								<path
+									d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z"
+									stroke-width="0"
+									fill="currentColor"
+								/>
+							</svg>
+						</button>
+						<button class="transition-[stroke] stroke-white hover:stroke-blue-500 duration-200">
+							<svg
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+								<path d="M13.5 6.5l4 4" />
+							</svg>
+						</button>
+					</div>
+
 					<button class="max-w-[21rem] text-sm break-words" on:click={copyText}>
 						{copypaste.content}
 					</button>
-					<p class="mt-2 text-purple-200">{copypaste.categories}</p>
+					<p class="mt-2 text-purple-200">
+						{copypaste.categories.map((str) => ' ' + str)}
+					</p>
 				</div>
 			{/each}
 			{#if copypastes.length === 0}
@@ -181,3 +229,14 @@
 		<FlatToast {data} />
 	</ToastContainer>
 </section>
+
+<style>
+	._box-shadow-hover {
+		transition: box-shadow;
+		transition-duration: 300ms;
+	}
+
+	._box-shadow-hover:hover {
+		box-shadow: 0px 0px 12px 8px #816a8f;
+	}
+</style>
