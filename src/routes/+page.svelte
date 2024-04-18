@@ -24,7 +24,8 @@
 				<a
 					href={!data.user ? '/signup' : '/dashboard'}
 					class="flex stroke-black dark:stroke-white p-3 mt-4 border border-black dark:border-white rounded-md w-fit hover:stroke-white hover:bg-purple-600 hover:border-purple-600 hover:text-white transition-colors duration-300"
-					>Join now <svg
+					>{!data.user ? 'Join now' : 'Go to dashboard'}
+					<svg
 						width="24"
 						height="24"
 						viewBox="0 0 24 24"
