@@ -3,6 +3,8 @@
 	import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
 	import { fade } from 'svelte/transition';
 
+	let categories: string[] = [];
+
 	const copyText = (event: MouseEvent) => {
 		if (event.target instanceof HTMLElement) {
 			try {
@@ -15,6 +17,56 @@
 		}
 
 		toasts.success('Copypaste copied succesfully');
+	};
+
+	const handleAddCopypaste = async (event: SubmitEvent) => {
+		event.preventDefault();
+		const data = new FormData(event.currentTarget as EventTarget & HTMLFormElement);
+
+		const response = await fetch((event.currentTarget as EventTarget & HTMLFormElement).action, {
+			method: 'POST',
+			body: data
+		});
+
+		const responseData = await response.json();
+		console.log(responseData);
+	};
+
+	let categoryInput: string;
+	let addCategoryButton: HTMLButtonElement;
+
+	const addCategory = async (event: MouseEvent) => {
+		event.preventDefault();
+
+		if (!categoryInput) {
+			toasts.error('Category input cannot be empty.');
+			addCategoryButton.style.backgroundColor = 'red';
+			addCategoryButton.classList.add('shake');
+			setTimeout(() => {
+				addCategoryButton.classList.remove('shake');
+				addCategoryButton.style.backgroundColor = 'rgb(126, 34, 206)';
+			}, 600);
+			return;
+		}
+		categoryInput = categoryInput.trim().replace(/\s+/g, '');
+		if (categories.includes(categoryInput)) {
+			toasts.error('Category already exists.');
+			return;
+		}
+		if (categoryInput.length === 0 || categoryInput.length > 20) {
+			toasts.error('Category must be between 1 and 20 characters long.');
+			return;
+		}
+
+		categories = [...categories, categoryInput];
+		categoryInput = '';
+		console.log(categories);
+	};
+
+	const removeCategory = async (event: MouseEvent) => {
+		categories = categories.filter(
+			(category) => category !== (event.currentTarget as HTMLButtonElement).dataset.category
+		);
 	};
 
 	export let data;
@@ -39,7 +91,9 @@
 						fill="none"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						class="fill-purple-500 hover:fill-purple-400 hover:scale-110 transition-[color, scale] duration-200"
+						class="{showAddCopypaste
+							? 'fill-red-500 hover:fill-red-400 rotate-45'
+							: 'fill-purple-500 hover:fill-purple-400'} hover:scale-110 transition-[color, scale] duration-200"
 					>
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<path
@@ -51,7 +105,9 @@
 				{#if showAddCopypaste}
 					<form
 						transition:fade={{ duration: 150 }}
-						action=""
+						action="?/add"
+						method="POST"
+						on:submit={handleAddCopypaste}
 						class="bg-purple-900/20 backdrop-blur-lg absolute left-1/2 transform -translate-x-1/2 z-10 rounded-lg p-4 flex flex-col gap-3 text-white"
 					>
 						<div class="flex flex-col">
@@ -77,12 +133,16 @@
 							<label for="add-copypaste-categories" class="text-xs mb-1">Categories</label>
 							<div class="flex gap-1.5">
 								<input
+									bind:value={categoryInput}
 									type="text"
 									name="categories"
 									id="add-copypaste-categories"
 									class="bg-transparent border rounded-md w-1/3 text-xs"
 								/>
 								<button
+									bind:this={addCategoryButton}
+									on:click={addCategory}
+									type="button"
 									class="bg-purple-700 hover:bg-purple-500 transition-colors duration-200 rounded-full p-1.5"
 									><svg
 										width="12"
@@ -108,44 +168,31 @@
 								>Add</button
 							>
 							<div class="flex gap-1 mb-1 mt-2.5 flex-wrap">
-								<div class="text-xs bg-gray-800 p-1.5 rounded-lg flex gap-1.5">
-									<button class="rounded-full bg-gray-900 py-0.5 px-1"
-										><svg
-											class="stroke-white"
-											width="8"
-											height="8"
-											viewBox="0 0 24 24"
-											stroke-width="1.5"
-											fill="none"
-											stroke-linecap="round"
-											stroke-linejoin="round"
+								{#each categories as category}
+									<div class="text-xs bg-gray-800 p-1.5 rounded-lg flex gap-1.5">
+										<button
+											type="button"
+											class="rounded-full bg-gray-900 py-0.5 px-1 hover:bg-red-700 transition-colors duration-200"
+											on:click={removeCategory}
+											data-category={category}
+											><svg
+												class="stroke-white"
+												width="8"
+												height="8"
+												viewBox="0 0 24 24"
+												stroke-width="1.5"
+												fill="none"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+												<path d="M18 6l-12 12" />
+												<path d="M6 6l12 12" />
+											</svg></button
 										>
-											<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-											<path d="M18 6l-12 12" />
-											<path d="M6 6l12 12" />
-										</svg></button
-									>
-									<p class="">Example</p>
-								</div>
-								<div class="text-xs bg-gray-800 p-1.5 rounded-lg flex gap-1.5">
-									<button class="rounded-full bg-gray-900 py-0.5 px-1"
-										><svg
-											class="stroke-white"
-											width="8"
-											height="8"
-											viewBox="0 0 24 24"
-											stroke-width="1.5"
-											fill="none"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										>
-											<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-											<path d="M18 6l-12 12" />
-											<path d="M6 6l12 12" />
-										</svg></button
-									>
-									<p class="">Example</p>
-								</div>
+										<p class="cursor-default">{category}</p>
+									</div>
+								{/each}
 							</div>
 						</div>
 					</form>
@@ -238,5 +285,30 @@
 
 	._box-shadow-hover:hover {
 		box-shadow: 0px 0px 12px 8px #816a8f;
+	}
+
+	:global(.shake) {
+		animation: shake 0.82s infinite cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+		transform: translate3d(0, 0, 0);
+	}
+
+	@keyframes shake {
+		10%,
+		90% {
+			transform: translate3d(-1px, 0, 0);
+		}
+		20%,
+		80% {
+			transform: translate3d(2px, 0, 0);
+		}
+		30%,
+		50%,
+		70% {
+			transform: translate3d(-4px, 0, 0);
+		}
+		40%,
+		60% {
+			transform: translate3d(4px, 0, 0);
+		}
 	}
 </style>
