@@ -1,8 +1,11 @@
 <!-- copypastes -->
 <script lang="ts">
+	import { json } from '@sveltejs/kit';
 	import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
 	import { fade } from 'svelte/transition';
 
+	let titleInput: string;
+	let contentInput: string;
 	let categories: string[] = [];
 
 	const copyText = (event: MouseEvent) => {
@@ -21,15 +24,28 @@
 
 	const handleAddCopypaste = async (event: SubmitEvent) => {
 		event.preventDefault();
-		const data = new FormData(event.currentTarget as EventTarget & HTMLFormElement);
 
 		const response = await fetch((event.currentTarget as EventTarget & HTMLFormElement).action, {
 			method: 'POST',
-			body: data
+			body: JSON.stringify({
+				title: titleInput,
+				content: contentInput,
+				categories
+			})
 		});
 
-		const responseData = await response.json();
-		console.log(responseData);
+		const data = await response.json();
+
+		if (!response.ok) {
+			return toasts.error(data.error.message);
+		}
+
+		toasts.success('Copypaste added succesfully');
+
+		titleInput = '';
+		contentInput = '';
+		categories = [];
+		showAddCopypaste = false;
 	};
 
 	let categoryInput: string;
@@ -60,7 +76,6 @@
 
 		categories = [...categories, categoryInput];
 		categoryInput = '';
-		console.log(categories);
 	};
 
 	const removeCategory = async (event: MouseEvent) => {
@@ -115,6 +130,7 @@
 							<input
 								type="text"
 								name="title"
+								bind:value={titleInput}
 								id="add-copypaste-title"
 								class="bg-transparent border rounded-md w-1/2 text-xs px-3 py-1"
 							/>
@@ -123,6 +139,7 @@
 							<label for="add-copypaste-content" class="text-xs mb-1">Content</label>
 							<textarea
 								name="content"
+								bind:value={contentInput}
 								id="add-copypaste-content"
 								class="bg-transparent border rounded-md text-xs px-2 py-1"
 								cols="32"
@@ -204,7 +221,7 @@
 		{#if !data.error && copypastes}
 			{#each copypastes as copypaste}
 				<div
-					class="flex text-black dark:text-white bg-slate-900 flex-col p-3 m-4 rounded-lg cursor-pointer mt-12 _box-shadow-hover"
+					class="flex text-black dark:text-white bg-slate-900 flex-col p-3 m-4 rounded-lg cursor-pointer mt-12 _box-shadow-hover min-w-48"
 				>
 					<div
 						class="flex items-center text-center w-full border-b-[1.5px] border-gray-700 dark:border-gray-500 mb-1"

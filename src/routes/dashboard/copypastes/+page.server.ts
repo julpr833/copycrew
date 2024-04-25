@@ -1,5 +1,5 @@
 import db from '$lib/database';
-import { fail } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 
 export async function load({ locals }) {
 	const userId = locals.user.id;
@@ -8,6 +8,9 @@ export async function load({ locals }) {
 			where: {
 				author_id: userId,
 				group_id: null
+			},
+			orderBy: {
+				id: 'desc'
 			}
 		});
 		return { copypastes: [...copypastes] };
@@ -19,18 +22,31 @@ export async function load({ locals }) {
 }
 
 export const actions = {
-	add: async ({ request }) => {
-		const data = await request.formData();
-		const title = data.get('title')?.toString();
-		const content = data.get('content')?.toString();
-		const categories = data.get('categories');
+	add: async ({ request, locals }) => {
+		const data = await request.json();
 
-		if (!title || !content) {
-			return fail(400, { title, content, error: `${!title ? 'Title' : 'Content'} is required.` });
+		if (!data.title || !data.content) {
+			return error(400, { message: `${!data.title ? 'Title' : 'Content'} is required` });
 		}
 
-		if (categories == '') {
-			return fail(400, { categories, error: 'At least one category is required.' });
+		if (data.categories == '') {
+			return error(400, { message: 'At least one category is required' });
+		}
+
+		try {
+			// const newPaste = await db.copypaste.create({
+			// 	data: {
+			// 		title: data.title,
+			// 		content: data.content,
+			// 		author_id: locals.user.id,
+			// 		categories: data.categories
+			// 	}
+			// });
+			return json({ test: 'esto es una prueba' });
+		} catch {
+			return error(500, {
+				message: 'Something went wrong while adding your copypaste'
+			});
 		}
 	}
 };
