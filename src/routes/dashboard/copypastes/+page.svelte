@@ -1,11 +1,13 @@
 <!-- copypastes -->
 <script lang="ts">
+	import { deserialize } from '$app/forms';
+	import { invalidate } from '$app/navigation';
 	import { json } from '@sveltejs/kit';
 	import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
 	import { fade } from 'svelte/transition';
 
-	let titleInput: string;
-	let contentInput: string;
+	let titleInput: string = '';
+	let contentInput: string = '';
 	let categories: string[] = [];
 
 	const copyText = (event: MouseEvent) => {
@@ -25,20 +27,41 @@
 	const handleAddCopypaste = async (event: SubmitEvent) => {
 		event.preventDefault();
 
+		if (!titleInput || !contentInput) {
+			toasts.error(`${!titleInput ? 'Title' : 'Content'} cannot be empty`);
+			return;
+		}
+
+		if (titleInput.length < 4) {
+			toasts.error('Title must be at least 4 characters long');
+			return;
+		}
+
+		if (categories.length === 0) {
+			toasts.error('Please add at least one category');
+			return;
+		}
+
+		const formData = new FormData();
+		formData.append('title', titleInput);
+		formData.append('content', contentInput);
+		formData.append('categories', JSON.stringify(categories));
 		const response = await fetch((event.currentTarget as EventTarget & HTMLFormElement).action, {
 			method: 'POST',
-			body: JSON.stringify({
-				title: titleInput,
-				content: contentInput,
-				categories
-			})
+			body: formData
 		});
 
-		const data = await response.json();
-
 		if (!response.ok) {
-			return toasts.error(data.error.message);
+			const responseData = await response.json();
+			return toasts.error(responseData.error.message);
 		}
+
+		const responseData = await response.text();
+		const data = deserialize(responseData);
+
+		// @ts-ignore
+		copypastes = [data.data, ...copypastes];
+		// Sorry, this is my first ever SvelteKit project + first ever TypeScript web project and I have no idea how to fix this xD
 
 		toasts.success('Copypaste added succesfully');
 
@@ -85,7 +108,7 @@
 	};
 
 	export let data;
-	const { copypastes } = data;
+	let { copypastes } = data;
 
 	let showAddCopypaste = false;
 </script>
@@ -218,73 +241,77 @@
 		{/if}
 	</div>
 	<div class="flex flex-wrap items-center justify-center">
-		{#if !data.error && copypastes}
-			{#each copypastes as copypaste}
-				<div
-					class="flex text-black dark:text-white bg-slate-900 flex-col p-3 m-4 rounded-lg cursor-pointer mt-12 _box-shadow-hover min-w-48"
-				>
+		{#key copypastes}
+			{#if !data.error && copypastes}
+				{#each copypastes as copypaste}
 					<div
-						class="flex items-center text-center w-full border-b-[1.5px] border-gray-700 dark:border-gray-500 mb-1"
+						class="flex text-black dark:text-white bg-slate-900 flex-col p-3 m-4 rounded-lg cursor-pointer mt-12 _box-shadow-hover min-w-48"
 					>
-						<h2 class="font-bold text-purple-300 py-1 w-full">
-							{copypaste.title}
-						</h2>
-						<button>
-							<svg
-								class="transition-colors hover:text-red-500 duration-200"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<path
-									d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z"
-									stroke-width="0"
-									fill="currentColor"
-								/>
-								<path
-									d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z"
-									stroke-width="0"
-									fill="currentColor"
-								/>
-							</svg>
-						</button>
-						<button class="transition-[stroke] stroke-white hover:stroke-blue-500 duration-200">
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								fill="none"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
-								<path d="M13.5 6.5l4 4" />
-							</svg>
-						</button>
-					</div>
+						<div
+							class="flex items-center text-center w-full border-b-[1.5px] border-gray-700 dark:border-gray-500 mb-1"
+						>
+							<h2 class="font-bold text-purple-300 py-1 w-full">
+								{copypaste.title}
+							</h2>
+							<button>
+								<svg
+									class="transition-colors hover:text-red-500 duration-200"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path
+										d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z"
+										stroke-width="0"
+										fill="currentColor"
+									/>
+									<path
+										d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z"
+										stroke-width="0"
+										fill="currentColor"
+									/>
+								</svg>
+							</button>
+							<button class="transition-[stroke] stroke-white hover:stroke-blue-500 duration-200">
+								<svg
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+									<path d="M13.5 6.5l4 4" />
+								</svg>
+							</button>
+						</div>
 
-					<button class="max-w-[21rem] text-sm break-words" on:click={copyText}>
-						{copypaste.content}
-					</button>
-					<p class="mt-2 text-purple-200">
-						{copypaste.categories.map((str) => ' ' + str)}
-					</p>
-				</div>
-			{/each}
-			{#if copypastes.length === 0}
-				<h2
-					class=" text-transparent bg-gradient-to-r from-blue-200 via-purple-300 to-purple-600 bg-clip-text text-3xl font-bold max-w-xl text-center mt-12"
-				>
-					You have no copypastas yet, press the add button to create one.
-				</h2>
+						<button class="max-w-[21rem] text-sm break-words" on:click={copyText}>
+							{copypaste.content}
+						</button>
+						<p class="mt-2 text-purple-200">
+							{copypaste.categories.map((str) => ' ' + str)}
+						</p>
+					</div>
+				{/each}
+
+				{#if copypastes.length === 0}
+					<h2
+						class=" text-transparent bg-gradient-to-r from-blue-200 via-purple-300 to-purple-600 bg-clip-text text-3xl font-bold max-w-xl text-center mt-12"
+					>
+						You have no copypastas yet, press the add button to create one.
+					</h2>
+				{/if}
 			{/if}
-		{/if}
+		{/key}
+
 		{#if data.error}
 			<h2 class="text-red-400 text-3xl font-bold max-w-xl text-center mt-14">{data.error}</h2>
 		{/if}
