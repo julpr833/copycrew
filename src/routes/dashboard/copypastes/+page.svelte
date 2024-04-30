@@ -1,14 +1,18 @@
 <!-- copypastes -->
 <script lang="ts">
 	import { deserialize } from '$app/forms';
-	import { invalidate } from '$app/navigation';
-	import { json } from '@sveltejs/kit';
 	import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
 	import { fade } from 'svelte/transition';
 
 	let titleInput: string = '';
 	let contentInput: string = '';
 	let categories: string[] = [];
+
+	let showDeleteModal: boolean = false;
+	let deleteSelected = {
+		id: 0,
+		title: ''
+	};
 
 	const copyText = (event: MouseEvent) => {
 		if (event.target instanceof HTMLElement) {
@@ -116,6 +120,38 @@
 <svelte:head>
 	<title>Copycrew - Your copypastes</title>
 </svelte:head>
+
+{#if showDeleteModal}
+	<section id="delete-modal">
+		<div
+			class="fixed z-50 bg-indigo-900/30 backdrop-blur-lg w-full h-full top-0 left-0"
+			transition:fade={{ duration: 150 }}
+		>
+			<form
+				action="?/delete"
+				method="POST"
+				class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 text-white flex flex-col max-w-sm items-center p-4 rounded-md"
+			>
+				<input type="hidden" name="id" value={deleteSelected.id} />
+				<p class="font-bold">Realmente desea eliminar el copypaste?</p>
+				<p class="font-bold text-purple-500 my-2">{deleteSelected.title}</p>
+				<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-full mb-3" />
+				<div class="flex gap-4">
+					<button
+						type="submit"
+						class="bg-red-500 p-1.5 rounded-md hover:bg-red-300 transition-colors duration-200"
+						>Eliminar</button
+					>
+					<button
+						type="button"
+						class="border border-white rounded-md p-1.5 hover:text-black bg-transparent duration-200 transition-colors hover:bg-white"
+						on:click={() => (showDeleteModal = false)}>Cancelar</button
+					>
+				</div>
+			</form>
+		</div>
+	</section>
+{/if}
 
 <section id="copypastes">
 	<div class="flex items-center justify-center mt-8">
@@ -247,13 +283,19 @@
 					<div
 						class="flex text-black dark:text-white bg-slate-900 flex-col p-3 m-4 rounded-lg cursor-pointer mt-12 _box-shadow-hover min-w-48"
 					>
-						<div
+						<button
 							class="flex items-center text-center w-full border-b-[1.5px] border-gray-700 dark:border-gray-500 mb-1"
 						>
 							<h2 class="font-bold text-purple-300 py-1 w-full">
 								{copypaste.title}
 							</h2>
-							<button>
+							<button
+								on:click={() => {
+									deleteSelected.title = copypaste.title;
+									deleteSelected.id = copypaste.id;
+									showDeleteModal = true;
+								}}
+							>
 								<svg
 									class="transition-colors hover:text-red-500 duration-200"
 									width="24"
@@ -291,7 +333,7 @@
 									<path d="M13.5 6.5l4 4" />
 								</svg>
 							</button>
-						</div>
+						</button>
 
 						<button class="max-w-[21rem] text-sm break-words" on:click={copyText}>
 							{copypaste.content}
