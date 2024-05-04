@@ -18,6 +18,12 @@
 		id: 0,
 		title: ''
 	};
+	let editSelected = {
+		id: 0,
+		title: '',
+		content: '',
+		categories: ['']
+	};
 
 	export let data;
 	let { copypastes } = data;
@@ -161,46 +167,62 @@
 		>
 			<form
 				action="?/delete"
-				method="POST"
+				method="PUT"
 				class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 text-white flex flex-col max-w-sm items-center p-6 rounded-md"
 			>
-				<!-- TODO: bind this xD -->
-				<input type="hidden" name="id" />
+				<h2 class="font-bold text-purple-400 mb-2">Editing {editSelected.title}</h2>
+				<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-full mb-3" />
+				<input type="hidden" name="id" value={editSelected.id} />
 				<label for="title" class="text-xs py-0.5">Title</label>
 				<input
 					type="text"
 					name="title"
 					id="title"
 					class="rounded-md bg-transparent border border-white focus:border-purple-400 transition-colors duration-300 outline-none p-1 max-w-48"
+					value={editSelected.title}
 				/>
 				<label for="content" class="text-xs py-0.5 mt-4">Content</label>
 				<textarea
 					name="content"
 					id="content"
-					cols="24"
+					cols="32"
 					rows="8"
 					class="rounded-md bg-transparent border border-white focus:border-purple-400 transition-colors duration-300 outline-none p-1"
+					value={editSelected.content}
 				></textarea>
-				<div class="text-xs bg-gray-800 p-1.5 rounded-lg flex gap-1.5 mt-4">
-					<button
-						type="button"
-						class="rounded-full bg-gray-900 py-0.5 px-1 hover:bg-red-700 transition-colors duration-200"
-						><svg
-							class="stroke-white"
-							width="8"
-							height="8"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							fill="none"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+				<div class="flex gap-2">
+					{#each editSelected.categories as category}
+						<button
+							class="text-xs bg-gray-800 p-1.5 rounded-lg flex gap-1.5 mt-4"
+							data-category={category}
+							type="button"
+							on:click={() => {
+								editSelected.categories = [
+									...editSelected.categories.filter((c) => c !== category)
+								];
+							}}
 						>
-							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-							<path d="M18 6l-12 12" />
-							<path d="M6 6l12 12" />
-						</svg></button
-					>
-					<p class="cursor-default">Example</p>
+							<button
+								type="button"
+								class="flex items-center rounded-full bg-gray-900 py-0.5 px-1 hover:bg-red-700 transition-colors duration-200"
+								><svg
+									class="stroke-white"
+									width="8"
+									height="12"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M18 6l-12 12" />
+									<path d="M6 6l12 12" />
+								</svg></button
+							>
+							<p class="cursor-default">{category}</p>
+						</button>
+					{/each}
 				</div>
 				<div class="flex gap-4 mt-4">
 					<button
@@ -386,7 +408,13 @@
 							</button>
 							<button
 								class="transition-[stroke] stroke-white hover:stroke-blue-500 duration-200"
-								on:click={() => (showEditModal = true)}
+								on:click={() => {
+									showEditModal = true;
+									editSelected.id = copypaste.id;
+									editSelected.title = copypaste.title;
+									editSelected.content = copypaste.content;
+									editSelected.categories = copypaste.categories;
+								}}
 							>
 								<svg
 									width="24"
