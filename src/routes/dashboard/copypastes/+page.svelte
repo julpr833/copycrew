@@ -6,13 +6,21 @@
 
 	let titleInput: string = '';
 	let contentInput: string = '';
+	let categoryInput: string;
 	let categories: string[] = [];
 
+	let addCategoryButton: HTMLButtonElement;
+
+	let showAddCopypaste: boolean = false;
 	let showDeleteModal: boolean = false;
+	let showEditModal: boolean = false;
 	let deleteSelected = {
 		id: 0,
 		title: ''
 	};
+
+	export let data;
+	let { copypastes } = data;
 
 	const copyText = (event: MouseEvent) => {
 		if (event.target instanceof HTMLElement) {
@@ -75,9 +83,6 @@
 		showAddCopypaste = false;
 	};
 
-	let categoryInput: string;
-	let addCategoryButton: HTMLButtonElement;
-
 	const addCategory = async (event: MouseEvent) => {
 		event.preventDefault();
 
@@ -110,11 +115,6 @@
 			(category) => category !== (event.currentTarget as HTMLButtonElement).dataset.category
 		);
 	};
-
-	export let data;
-	let { copypastes } = data;
-
-	let showAddCopypaste = false;
 </script>
 
 <svelte:head>
@@ -133,19 +133,85 @@
 				class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 text-white flex flex-col max-w-sm items-center p-4 rounded-md"
 			>
 				<input type="hidden" name="id" value={deleteSelected.id} />
-				<p class="font-bold">Realmente desea eliminar el copypaste?</p>
+				<p class="font-bold">Do you really wanna delete this copypaste?</p>
 				<p class="font-bold text-purple-500 my-2">{deleteSelected.title}</p>
 				<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-full mb-3" />
 				<div class="flex gap-4">
 					<button
 						type="submit"
 						class="bg-red-500 p-1.5 rounded-md hover:bg-red-300 transition-colors duration-200"
-						>Eliminar</button
+						>Delete</button
 					>
 					<button
 						type="button"
 						class="border border-white rounded-md p-1.5 hover:text-black bg-transparent duration-200 transition-colors hover:bg-white"
-						on:click={() => (showDeleteModal = false)}>Cancelar</button
+						on:click={() => (showDeleteModal = false)}>Cancel</button
+					>
+				</div>
+			</form>
+		</div>
+	</section>
+{/if}
+
+{#if showEditModal}
+	<section id="delete-modal">
+		<div
+			class="fixed z-50 bg-indigo-900/30 backdrop-blur-lg w-full h-full top-0 left-0"
+			transition:fade={{ duration: 150 }}
+		>
+			<form
+				action="?/delete"
+				method="POST"
+				class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 text-white flex flex-col max-w-sm items-center p-6 rounded-md"
+			>
+				<!-- TODO: bind this xD -->
+				<input type="hidden" name="id" />
+				<label for="title" class="text-xs py-0.5">Title</label>
+				<input
+					type="text"
+					name="title"
+					id="title"
+					class="rounded-md bg-transparent border border-white focus:border-purple-400 transition-colors duration-300 outline-none p-1 max-w-48"
+				/>
+				<label for="content" class="text-xs py-0.5 mt-4">Content</label>
+				<textarea
+					name="content"
+					id="content"
+					cols="24"
+					rows="8"
+					class="rounded-md bg-transparent border border-white focus:border-purple-400 transition-colors duration-300 outline-none p-1"
+				></textarea>
+				<div class="text-xs bg-gray-800 p-1.5 rounded-lg flex gap-1.5 mt-4">
+					<button
+						type="button"
+						class="rounded-full bg-gray-900 py-0.5 px-1 hover:bg-red-700 transition-colors duration-200"
+						><svg
+							class="stroke-white"
+							width="8"
+							height="8"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M18 6l-12 12" />
+							<path d="M6 6l12 12" />
+						</svg></button
+					>
+					<p class="cursor-default">Example</p>
+				</div>
+				<div class="flex gap-4 mt-4">
+					<button
+						type="submit"
+						class="bg-blue-500 p-1.5 rounded-md hover:bg-blue-300 transition-colors duration-200 min-w-16"
+						>Edit</button
+					>
+					<button
+						type="button"
+						class="border border-white rounded-md p-1.5 hover:text-black bg-transparent duration-200 transition-colors hover:bg-white"
+						on:click={() => (showEditModal = false)}>Cancel</button
 					>
 				</div>
 			</form>
@@ -318,7 +384,10 @@
 									/>
 								</svg>
 							</button>
-							<button class="transition-[stroke] stroke-white hover:stroke-blue-500 duration-200">
+							<button
+								class="transition-[stroke] stroke-white hover:stroke-blue-500 duration-200"
+								on:click={() => (showEditModal = true)}
+							>
 								<svg
 									width="24"
 									height="24"
