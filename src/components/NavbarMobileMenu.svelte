@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
+	import { type UserCookieData } from '$lib/types/types';
 
 	let showSidebar = false;
 
