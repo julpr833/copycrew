@@ -1,12 +1,17 @@
 <script lang="ts">
 	import { toasts } from 'svelte-toasts';
-	import { type Copypaste } from '$lib/types/types';
+	import { copypastesStore } from '../stores/copypaste.store';
+	import { get } from 'svelte/store';
 
 	// Props
 	export let data;
 
-	// Variables
-	let { copypastes }: { copypastes: Copypaste[] } = data;
+	copypastesStore.set(data.copypastes);
+	let copypastes = get(copypastesStore);
+
+	copypastesStore.subscribe((value) => {
+		copypastes = value;
+	});
 
 	// Functions
 	const copyText = (event: MouseEvent) => {

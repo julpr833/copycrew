@@ -1,5 +1,5 @@
 import db from '$lib/database';
-import { type Actions } from '@sveltejs/kit';
+import { error, type Actions } from '@sveltejs/kit';
 
 export async function load({ locals }) {
 	const userId = locals.user.id;
@@ -13,6 +13,7 @@ export async function load({ locals }) {
 				id: 'desc'
 			}
 		});
+
 		return { copypastes: [...copypastes] };
 	} catch (error) {
 		return {
@@ -22,15 +23,48 @@ export async function load({ locals }) {
 }
 
 export const actions = {
-	add: async ({ request }) => {
+	add: async ({ request, locals }) => {
 		const data = await request.formData();
 		const title = data.get('title');
 		const content = data.get('content');
+		const categories = data.get('categories');
+		const parsedCategories = JSON.parse(categories as string);
 
-		return {
-			title,
-			content
-		};
+		if (!title || !content) {
+			return error(400, { message: `${!title ? 'Title' : 'Content'} is required` });
+		}
+
+		if ((title as string).length < 4) {
+			return error(400, { message: 'Title must be at least 4 characters long' });
+		}
+
+		if (parsedCategories.length < 1) {
+			return error(400, { message: 'At least one category is required' });
+		}
+
+		try {
+			const newCopypaste = await db.copypaste.create({
+				data: {
+					title: title.toString(),
+					content: content.toString(),
+					author_id: locals.user.id,
+					categories: parsedCategories
+				}
+			});
+
+			return {
+				id: newCopypaste.id,
+				title: newCopypaste.title,
+				categories: newCopypaste.categories,
+				content: newCopypaste.content,
+				author_id: newCopypaste.author_id,
+				group_id: newCopypaste.group_id
+			};
+		} catch {
+			return error(500, {
+				message: 'Something went wrong while adding your copypaste'
+			});
+		}
 	}
 } satisfies Actions;
 
