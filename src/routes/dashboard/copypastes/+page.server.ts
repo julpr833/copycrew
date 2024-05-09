@@ -52,7 +52,7 @@ export const actions = {
 				}
 			});
 
-			return {
+			const copypaste = {
 				id: newCopypaste.id,
 				title: newCopypaste.title,
 				categories: newCopypaste.categories,
@@ -60,6 +60,7 @@ export const actions = {
 				author_id: newCopypaste.author_id,
 				group_id: newCopypaste.group_id
 			};
+			return copypaste;
 		} catch {
 			return error(500, {
 				message: 'Something went wrong while adding your copypaste'

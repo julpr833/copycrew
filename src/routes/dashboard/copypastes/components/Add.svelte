@@ -4,6 +4,7 @@
 	import { applyAction, enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { copypastesStore } from '../stores/copypaste.store';
+	import { page } from '$app/stores';
 
 	type CopypasteForm = {
 		showModal: boolean;
@@ -15,6 +16,8 @@
 		categoryButton: HTMLButtonElement | null;
 		categoryInput: string;
 		categories: string[];
+
+		loading: boolean;
 	};
 
 	let addCopypaste: CopypasteForm = {
@@ -26,7 +29,9 @@
 
 		categoryButton: null,
 		categoryInput: '',
-		categories: []
+		categories: [],
+
+		loading: false
 	};
 
 	const handleAddCategory = () => {
@@ -90,6 +95,8 @@
 						return;
 					}
 
+					addCopypaste.loading = true;
+
 					return async ({ result }) => {
 						if (result.type === 'error') {
 							toasts.error(result.error.message);
@@ -102,13 +109,15 @@
 
 							toasts.success('Copypaste added succesfully');
 
-							// nah i cba, i can't find any info on how to fix this
-							// @ts-ignore
-							$copypastesStore = [...$copypastesStore, result.data];
+							if (result.data) {
+								$copypastesStore = [...$copypastesStore, $page.form];
+							}
 							addCopypaste.title = '';
 							addCopypaste.content = '';
 							addCopypaste.categories = [];
 							addCopypaste.toggleModal();
+
+							addCopypaste.loading = false;
 						}
 					};
 				}}
@@ -147,8 +156,9 @@
 						<button
 							type="button"
 							bind:this={addCopypaste.categoryButton}
+							disabled={addCopypaste.loading}
 							on:click={handleAddCategory}
-							class="bg-purple-800/50 hover:bg-purple-500/50 transition-[background-color] duration-200 w-fit rounded-full p-1"
+							class="enabled:bg-purple-800/50 enabled:hover:bg-purple-500/50 enabled:transition-[background-color] duration-200 w-fit rounded-full p-1 disabled:bg-slate-500"
 							><svg
 								class="stroke-white"
 								width="20"
@@ -187,16 +197,38 @@
 				</div>
 				<input type="hidden" name="categories" value={JSON.stringify(addCopypaste.categories)} />
 				<button
+					disabled={addCopypaste.loading}
 					type="submit"
-					class="bg-purple-700 hover:bg-purple-500 hover:scale-105 transition-[background-color, scale] duration-200 w-fit p-2 rounded-md text-sm self-center mt-4"
-					>Add copypaste</button
+					class="enabled:bg-purple-700 enabled:hover:bg-purple-500 enabled:hover:scale-105 enabled:transition-[background-color, scale] duration-200 w-fit p-2 rounded-md text-sm self-center mt-4 disabled:bg-slate-500"
 				>
+					{#if !addCopypaste.loading}
+						Add copypaste
+					{:else}
+						<svg
+							class="stroke-white spin"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M12 3a9 9 0 1 0 9 9" />
+						</svg>
+					{/if}
+				</button>
 			</form>
 		</div>
 	{/if}
 </div>
 
 <style>
+	.spin {
+		animation: spin 1s linear infinite;
+	}
+
 	:global(.shake-error) {
 		animation: shake 0.82s infinite cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 		transform: translate3d(0, 0, 0);
@@ -224,6 +256,12 @@
 		40%,
 		60% {
 			transform: translate3d(4px, 0, 0);
+		}
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
 		}
 	}
 </style>
