@@ -110,7 +110,7 @@
 							toasts.success('Copypaste added succesfully');
 
 							if (result.data) {
-								$copypastesStore = [...$copypastesStore, $page.form];
+								$copypastesStore = [$page.form, ...$copypastesStore];
 							}
 							addCopypaste.title = '';
 							addCopypaste.content = '';

@@ -22,7 +22,7 @@
 		/>
 		<path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
 	</svg>
-	<a href="/" class="text-3xl logo-font">CopyCrew</a>
+	<a href="/" class="text-2xl md:text-3xl logo-font">CopyCrew</a>
 </div>
 
 <style>
