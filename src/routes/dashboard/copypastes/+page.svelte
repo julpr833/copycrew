@@ -3,7 +3,7 @@
 	import { ToastContainer, FlatToast } from 'svelte-toasts';
 
 	// Components
-	import Copypastes from './components/Copypastes.svelte';
+	import CopypasteList from './components/CopypasteList.svelte';
 	import Add from './components/Add.svelte';
 
 	// Props
@@ -15,7 +15,7 @@
 </svelte:head>
 
 <Add />
-<Copypastes {data} />
+<CopypasteList {data} />
 
 <ToastContainer placement="bottom-right" let:data>
 	<FlatToast {data} />
