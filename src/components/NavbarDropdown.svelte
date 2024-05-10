@@ -1,153 +1,130 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
-	let showDropdown = false;
-	let dropdownTimeout: ReturnType<typeof setTimeout>;
+	type Dropdown = {
+		shown: boolean;
+		dropdownArrow: HTMLSpanElement | null;
+		hideTimeout: NodeJS.Timeout | null;
 
-	function handleDropdownMouseEnter() {
-		clearTimeout(dropdownTimeout);
-		showDropdown = true;
-	}
+		show: () => void;
+		hide: () => void;
+	};
 
-	function handleDropdownMouseLeave() {
-		dropdownTimeout = setTimeout(() => {
-			showDropdown = false;
-		}, 200);
-	}
+	let dropdown: Dropdown = {
+		shown: false,
+		dropdownArrow: null,
+		hideTimeout: null,
+
+		show: () => (
+			(dropdown.shown = true), dropdown.hideTimeout && clearTimeout(dropdown.hideTimeout)
+		),
+		hide: () =>
+			(dropdown.hideTimeout = setTimeout(() => {
+				dropdown.shown = false;
+			}, 200))
+	};
 </script>
 
 <nav
-	class="dashboard-button flex flex-row items-center gap-1 relative cursor-pointer"
-	on:mouseenter={handleDropdownMouseEnter}
-	on:mouseleave={handleDropdownMouseLeave}
+	on:mouseover={dropdown.show}
+	on:focus={dropdown.show}
+	on:mouseout={dropdown.hide}
+	on:blur={dropdown.hide}
+	class="relative"
 >
-	<a
-		aria-label="home"
-		href="/dashboard"
-		class="text-[#b078fa] hover:text-[#583d7c] dark:hover:text-[#cdaff5] transition-colors duration-300 font-bold"
-		>Dashboard
-		{#if showDropdown}
-			<ul
-				role="menu"
-				tabindex="0"
-				aria-label="dashboard-dropdown"
-				in:fade={{ duration: 200 }}
-				on:mouseenter={handleDropdownMouseEnter}
-				on:mouseleave={handleDropdownMouseLeave}
-				class="dashboard-dropdown cursor-pointer absolute font-bold bg-[#e9e9e9] text-[#4b4b4b] dark:text-white dark:bg-slate-900 -left-10 top-7 w-full rounded-md p-2 min-w-44"
-			>
-				<li class="flex items-center gap-2">
-					<a data-sveltekit-reload href="/dashboard/copypastes">My copypastes</a><svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						class="stroke-black dark:stroke-white"
-						fill="none"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-						<path
-							d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"
-						/>
-						<path
-							d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"
-						/>
-					</svg>
-				</li>
-				<li class="flex items-center gap-2">
-					<a data-sveltekit-reload href="/dashboard/groups">Groups</a>
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						class="stroke-black dark:stroke-white"
-						fill="none"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-						<path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-						<path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" />
-						<path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-						<path d="M17 10h2a2 2 0 0 1 2 2v1" />
-						<path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-						<path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
-					</svg>
-				</li>
-				<li class="flex items-center gap-2">
-					<a data-sveltekit-reload href="/logout">Logout</a>
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						class="stroke-black dark:stroke-white"
-						fill="none"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-						<path
-							d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
-						/>
-						<path d="M9 12h12l-3 -3" />
-						<path d="M18 15l3 -3" />
-					</svg>
-				</li>
-			</ul>
-		{/if}</a
-	>
-	<svg
-		class="dashboard-button--arrow"
-		width="18"
-		height="18"
-		viewBox="0 0 24 24"
-		stroke-width="1.5"
-		stroke="#6f32be"
-		fill="none"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-	>
-		<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-		<path
-			d="M18 9c.852 0 1.297 .986 .783 1.623l-.076 .084l-6 6a1 1 0 0 1 -1.32 .083l-.094 -.083l-6 -6l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057v-.118l.005 -.058l.009 -.06l.01 -.052l.032 -.108l.027 -.067l.07 -.132l.065 -.09l.073 -.081l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01l.057 -.004l12.059 -.002z"
-			stroke-width="0"
-			fill="currentColor"
-		/>
-	</svg>
+	<button>
+		<a href="/dashboard" class="flex font-bold gap-1 text-purple-300">
+			Manage
+			<span bind:this={dropdown.dropdownArrow}>
+				<svg
+					class:point-down={dropdown.shown}
+					stroke="#fff"
+					width="20"
+					height="24"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+					<path d="M6 9l6 6l6 -6" />
+				</svg>
+			</span>
+		</a>
+	</button>
+
+	{#if dropdown.shown}
+		<div
+			class="absolute z-50 top-8 -left-8 bg-slate-900/80 min-w-[120px] p-2 rounded-md"
+			transition:fade={{ duration: 180 }}
+		>
+			<nav>
+				<ul>
+					<li class="mb-2">
+						<a
+							href="/dashboard/copypastes"
+							class="hover:opacity-80 transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
+						>
+							<svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-12a2 2 0 00-2-2h-2m-4-4v8m-4-24H6m10 4h8M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+								/>
+							</svg>
+							Copypastes
+						</a>
+					</li>
+					<li class="mb-2">
+						<a
+							href="/dashboard/groups"
+							class="hover:opacity-80 transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
+						>
+							<svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+								/>
+							</svg>
+							Groups
+						</a>
+					</li>
+					<li>
+						<a
+							href="/logout"
+							data-sveltekit-reload
+							class="hover:opacity-80 transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
+						>
+							<svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+								/>
+							</svg>
+							Log out
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	{/if}
 </nav>
 
 <style>
-	.dashboard-dropdown li {
-		cursor: pointer;
-		padding-block: 8px;
-		padding-inline: 4px;
-		transition: color;
-		transition-duration: 300ms;
+	:global(.point-down) {
+		animation: point-down 1s infinite;
 	}
 
-	.dashboard-dropdown li:hover {
-		color: #b187e7;
-	}
-
-	.dashboard-dropdown li:not(:last-child) {
-		border-bottom: 1px solid #6f32be;
-	}
-
-	.dashboard-button:hover .dashboard-button--arrow {
-		animation: 1s cubic-bezier(0.74, -0.05, 0.4, 0.86) infinite bounce;
-	}
-
-	@keyframes bounce {
+	@keyframes point-down {
 		0%,
 		100% {
-			transform: translate3d(0, 0, 0);
+			transform: translateY(0);
 		}
 		50% {
-			transform: translate3d(0, 4px, 0);
+			transform: translateY(4px);
 		}
 	}
 </style>
