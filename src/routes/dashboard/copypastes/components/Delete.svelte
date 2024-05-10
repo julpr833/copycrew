@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { applyAction, enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { toasts } from 'svelte-toasts';
 	import { copypastesStore } from '../stores/copypaste.store';
 
@@ -13,7 +13,7 @@
 
 <button on:click={() => (showModal = true)}>
 	<svg
-		class="stroke-white py-0.5 hover:stroke-red-500 transition-[stroke] duration-200"
+		class="stroke-white py-0.5 -mx-0.5 hover:stroke-red-500 transition-[stroke] duration-200"
 		width="30"
 		height="30"
 		viewBox="0 0 24 24"
@@ -90,7 +90,7 @@
 						method="POST"
 						use:enhance={() => {
 							isDeleting = true;
-							return ({ result }) => {
+							return async ({ result }) => {
 								if (result.type === 'success') {
 									invalidateAll();
 									applyAction(result);
@@ -99,8 +99,13 @@
 									showModal = false;
 									isDeleting = false;
 								}
+
 								if (result.type === 'error') {
 									toasts.error(result.error.message);
+								}
+
+								if (result.type === 'redirect') {
+									await goto(result.location);
 								}
 							};
 						}}

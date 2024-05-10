@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import { applyAction, enhance } from '$app/forms';
 	import { toasts } from 'svelte-toasts';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	export let copypaste: {
 		id: number;
@@ -43,7 +43,7 @@
 
 <button on:click={() => (showModal = true)}>
 	<svg
-		class="stroke-white py-0.5 hover:stroke-blue-500 transition-[stroke] duration-200"
+		class="stroke-white py-0.5 -mx-0.5 hover:stroke-blue-500 transition-[stroke] duration-200"
 		width="30"
 		height="30"
 		viewBox="0 0 24 24"
@@ -130,6 +130,12 @@
 								return;
 							}
 
+							if (title.length > 64) {
+								toasts.error('Title cannot be more than 32 characters long');
+								cancel();
+								return;
+							}
+
 							if (editCategories.some((category) => category.includes(' '))) {
 								toasts.error('Categories cannot contain spaces');
 								cancel();
@@ -157,6 +163,10 @@
 
 								if (result.type === 'error') {
 									toasts.error(result.error.message);
+								}
+
+								if (result.type === 'redirect') {
+									await goto(result.location);
 								}
 
 								if (result.type === 'success') {

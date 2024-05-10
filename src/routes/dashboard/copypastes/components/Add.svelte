@@ -2,7 +2,7 @@
 	import { toasts } from 'svelte-toasts';
 	import { blur } from 'svelte/transition';
 	import { applyAction, enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { copypastesStore } from '../stores/copypaste.store';
 	import { page } from '$app/stores';
 
@@ -91,6 +91,12 @@
 						return;
 					}
 
+					if (addCopypaste.title.length > 64) {
+						toasts.error('Title cannot be more than 32 characters long');
+						cancel();
+						return;
+					}
+
 					if (addCopypaste.categories.length < 1) {
 						toasts.error('At least one category is required');
 						cancel();
@@ -108,6 +114,10 @@
 					return async ({ result }) => {
 						if (result.type === 'error') {
 							toasts.error(result.error.message);
+						}
+
+						if (result.type === 'redirect') {
+							await goto(result.location);
 						}
 
 						if (result.type === 'success') {
