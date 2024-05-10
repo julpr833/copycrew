@@ -8,6 +8,7 @@
 	export let id;
 
 	let showModal = false;
+	let isDeleting = false;
 </script>
 
 <button on:click={() => (showModal = true)}>
@@ -88,13 +89,15 @@
 						action="?/delete"
 						method="POST"
 						use:enhance={() => {
-							showModal = false;
+							isDeleting = true;
 							return ({ result }) => {
 								if (result.type === 'success') {
 									invalidateAll();
 									applyAction(result);
 									$copypastesStore = $copypastesStore.filter((copypaste) => copypaste.id !== id);
 									toasts.success('Copypaste deleted successfully');
+									showModal = false;
+									isDeleting = false;
 								}
 								if (result.type === 'error') {
 									toasts.error(result.error.message);
@@ -105,9 +108,26 @@
 						<input type="hidden" name="id" value={id} />
 						<button
 							type="submit"
-							class="border border-white hover:bg-white transition-[background-color, color] duration-200 hover:text-black py-1.5 px-2 rounded-md"
+							disabled={isDeleting}
+							class="border border-white disabled:bg-slate-700 enabled:hover:bg-white enabled:transition-[background-color, color] duration-200 enabled:hover:text-black py-1.5 px-2 rounded-md"
 						>
-							Confirm
+							{#if !isDeleting}
+								Confirm
+							{:else}
+								<svg
+									class="stroke-white spin"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M12 3a9 9 0 1 0 9 9" />
+								</svg>
+							{/if}
 						</button>
 					</form>
 					<button
@@ -122,3 +142,15 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+	.spin {
+		animation: spin 1s linear infinite;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+</style>
