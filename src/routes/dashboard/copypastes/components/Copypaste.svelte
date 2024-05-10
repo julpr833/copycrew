@@ -31,20 +31,22 @@
 
 <div
 	bind:this={copypasteElement}
-	class="flex text-black dark:text-white bg-slate-900 flex-col p-3 m-4 rounded-lg mt-12 min-w-48 transition-[box-shadow] duration-100"
+	class="flex text-black dark:text-white bg-slate-900 flex-col p-3 m-4 rounded-lg mt-12 max-w-[21rem] min-w-48 transition-[box-shadow] duration-100"
 >
 	<div
-		class="flex items-center text-center w-full border-b-[1.5px] border-gray-700 dark:border-gray-500 mb-1"
+		class="flex items-center text-center w-full border-b-[1.5px] border-gray-700 dark:border-gray-500 mb-1 gap-2"
 	>
-		<h2 class="font-bold text-purple-300 py-1 w-full">
+		<h2 class="font-bold text-purple-300 my-1.5 mx-1 w-full break-words text-balance">
 			{copypaste.title}
 		</h2>
-		<Delete id={copypaste.id} />
-		<Edit {copypaste} />
+		<div class="flex">
+			<Delete id={copypaste.id} />
+			<Edit {copypaste} />
+		</div>
 	</div>
 
 	<button
-		class="max-w-[21rem] text-sm break-words focus:outline-none"
+		class=" text-sm break-words focus:outline-none text-balance"
 		on:click={copyText}
 		on:mouseover={() => {
 			if (copypasteElement instanceof HTMLDivElement) {
