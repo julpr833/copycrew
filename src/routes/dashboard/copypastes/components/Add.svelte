@@ -36,6 +36,8 @@
 
 	const handleAddCategory = () => {
 		if (addCopypaste.categoryInput) {
+			if (addCopypaste.categoryInput.includes(' '))
+				return toasts.error('Category cannot contain spaces');
 			addCopypaste.categories = [...addCopypaste.categories, addCopypaste.categoryInput];
 			addCopypaste.categoryInput = '';
 		} else {
@@ -91,6 +93,12 @@
 
 					if (addCopypaste.categories.length < 1) {
 						toasts.error('At least one category is required');
+						cancel();
+						return;
+					}
+
+					if (addCopypaste.categories.some((c) => c.includes(' '))) {
+						toasts.error('Categories cannot contain spaces');
 						cancel();
 						return;
 					}
@@ -233,7 +241,7 @@
 		animation: shake 0.82s infinite cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 		transform: translate3d(0, 0, 0);
 		transition-duration: 100ms;
-		background-color: #bd3636;
+		background-color: #bd3636 !important;
 	}
 
 	@keyframes shake {
