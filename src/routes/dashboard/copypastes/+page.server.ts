@@ -66,6 +66,41 @@ export const actions = {
 				message: 'Something went wrong while adding your copypaste'
 			});
 		}
+	},
+
+	delete: async ({ request, locals }) => {
+		const data = await request.formData();
+		const id = data.get('id');
+
+		const paste = await db.copypaste.findUnique({
+			where: {
+				id: Number(id)
+			}
+		});
+
+		if (!paste) {
+			return error(404, {
+				message: 'Copypaste not found'
+			});
+		}
+
+		if (paste.author_id !== locals.user.id) {
+			return error(403, {
+				message: 'You do not have permission to delete this copypaste'
+			});
+		}
+
+		try {
+			await db.copypaste.delete({
+				where: {
+					id: Number(id)
+				}
+			});
+		} catch {
+			return error(500, {
+				message: 'Something went wrong while deleting your copypaste'
+			});
+		}
 	}
 } satisfies Actions;
 
