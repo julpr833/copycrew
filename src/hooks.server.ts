@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { JWT_KEY } from '$env/static/private';
 import db from '$lib/database';
-import type { Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
 import type { JwtPayload } from 'jsonwebtoken';
 
 interface CustomPayload extends JwtPayload {
@@ -28,6 +28,12 @@ export const auth: Handle = async ({ event, resolve }) => {
 			}
 		} catch (error) {
 			console.log(error);
+		}
+	}
+
+	if (!event.locals.user) {
+		if (event.url.pathname.startsWith('/dashboard')) {
+			throw redirect(303, '/login');
 		}
 	}
 
