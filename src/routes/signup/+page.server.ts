@@ -92,9 +92,3 @@ export const actions = {
 		return redirect(302, '/login');
 	}
 };
-
-export const load = ({ locals }) => {
-	if (locals.user) {
-		throw redirect(303, '/');
-	}
-};

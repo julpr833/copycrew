@@ -62,9 +62,3 @@ export const actions = {
 		throw redirect(303, '/dashboard');
 	}
 };
-
-export const load = ({ locals }) => {
-	if (locals.user) {
-		throw redirect(303, '/');
-	}
-};
