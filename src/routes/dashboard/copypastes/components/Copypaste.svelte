@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { toasts } from 'svelte-toasts';
 	import Delete from './Delete.svelte';
+	import Edit from './Edit.svelte';
 
 	export let copypaste: {
 		id: number;
@@ -39,6 +40,7 @@
 			{copypaste.title}
 		</h2>
 		<Delete id={copypaste.id} />
+		<Edit {copypaste} />
 	</div>
 
 	<button
