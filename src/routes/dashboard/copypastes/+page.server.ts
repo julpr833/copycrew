@@ -42,6 +42,10 @@ export const actions = {
 			return error(400, { message: 'At least one category is required' });
 		}
 
+		if (parsedCategories.some((category: string) => category.includes(' '))) {
+			return error(400, { message: 'Categories cannot contain spaces' });
+		}
+
 		try {
 			const newCopypaste = await db.copypaste.create({
 				data: {
@@ -99,6 +103,67 @@ export const actions = {
 		} catch {
 			return error(500, {
 				message: 'Something went wrong while deleting your copypaste'
+			});
+		}
+	},
+
+	edit: async ({ request, locals }) => {
+		const data = await request.formData();
+		const id = Number(data.get('id'));
+		const title = data.get('title');
+		const content = data.get('content');
+		const categories = data.get('categories');
+		const parsedCategories = JSON.parse(categories as string);
+
+		if (!title || !content) {
+			return error(400, { message: `${!title ? 'Title' : 'Content'} is required` });
+		}
+
+		if ((title as string).length < 4) {
+			return error(400, { message: 'Title must be at least 4 characters long' });
+		}
+
+		if (parsedCategories.length < 1) {
+			return error(400, { message: 'At least one category is required' });
+		}
+
+		if (parsedCategories.some((category: string) => category.includes(' '))) {
+			return error(400, { message: 'Categories cannot contain spaces' });
+		}
+
+		const paste = await db.copypaste.findUnique({
+			where: {
+				id: Number(id)
+			}
+		});
+
+		if (!paste) {
+			return error(404, {
+				message: 'Copypaste not found'
+			});
+		}
+
+		if (paste.author_id !== locals.user.id) {
+			return error(403, {
+				message: 'You do not have permission to delete this copypaste'
+			});
+		}
+
+		try {
+			const editedCopypaste = await db.copypaste.update({
+				where: {
+					id: id
+				},
+				data: {
+					title: title.toString(),
+					content: content.toString(),
+					categories: parsedCategories
+				}
+			});
+			return editedCopypaste;
+		} catch {
+			return error(500, {
+				message: 'Something went wrong while editing your copypaste'
 			});
 		}
 	}

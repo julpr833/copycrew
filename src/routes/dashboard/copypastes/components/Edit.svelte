@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { copypastesStore } from '../stores/copypaste.store';
+	import { page } from '$app/stores';
+	import { applyAction, enhance } from '$app/forms';
+	import { toasts } from 'svelte-toasts';
+	import { invalidateAll } from '$app/navigation';
 
 	export let copypaste: {
 		id: number;
@@ -12,7 +16,29 @@
 	};
 
 	let formElement: HTMLFormElement | null = null;
-	let showModal = true;
+	let showModal = false;
+
+	let editAddCategoryInput: string = '';
+	let editCategories: string[] = copypaste.categories;
+	let editAddCategoryButton: HTMLButtonElement | null = null;
+
+	let editPending = false;
+
+	const handleEditCategory = () => {
+		if (editAddCategoryInput) {
+			if (editAddCategoryInput.includes(' ')) return toasts.error('Category cannot contain spaces');
+
+			editCategories = [...editCategories, editAddCategoryInput];
+			editAddCategoryInput = '';
+		} else {
+			if (editAddCategoryButton instanceof HTMLButtonElement) {
+				editAddCategoryButton.classList.toggle('shake-error');
+				setTimeout(() => {
+					(editAddCategoryButton as HTMLButtonElement).classList.toggle('shake-error');
+				}, 1000);
+			}
+		}
+	};
 </script>
 
 <button on:click={() => (showModal = true)}>
@@ -83,7 +109,73 @@
 					</div>
 				</div>
 				<div class="bg-[#152642] px-4 py-3 sm:px-6 flex justify-center">
-					<form action="?/edit" method="POST" bind:this={formElement}>
+					<form
+						action="?/edit"
+						method="POST"
+						bind:this={formElement}
+						use:enhance={({ cancel, formData }) => {
+							const title = formData.get('title')?.toString();
+							const content = formData.get('content')?.toString();
+							const categories = formData.get('categories')?.toString();
+
+							if (!title || !content) {
+								toasts.error(`${!title ? 'Title' : 'Content'} is required`);
+								cancel();
+								return;
+							}
+
+							if (title.length < 4) {
+								toasts.error('Title must be at least 4 characters long');
+								cancel();
+								return;
+							}
+
+							if (editCategories.some((category) => category.includes(' '))) {
+								toasts.error('Categories cannot contain spaces');
+								cancel();
+								return;
+							}
+
+							if (!categories) {
+								toasts.error("This error shouldn't even happen, stop messing around...");
+								cancel();
+								return;
+							}
+
+							const parsedCategories = JSON.parse(categories);
+
+							if (parsedCategories.length < 1) {
+								toasts.error('At least one category is required');
+								cancel();
+								return;
+							}
+
+							editPending = true;
+
+							return async ({ result }) => {
+								editPending = false;
+
+								if (result.type === 'error') {
+									toasts.error(result.error.message);
+								}
+
+								if (result.type === 'success') {
+									invalidateAll();
+									await applyAction(result);
+
+									if (result.data) {
+										let editIndex = $copypastesStore.findIndex(
+											(copypaste) => copypaste.id === $page.form.id
+										);
+										$copypastesStore[editIndex] = $page.form;
+									}
+
+									toasts.success('Changes applied succesfully');
+									showModal = false;
+								}
+							};
+						}}
+					>
 						<input type="hidden" name="id" value={copypaste.id} />
 						<div class="flex flex-col mb-4">
 							<label
@@ -95,8 +187,7 @@
 								name="title"
 								id="title"
 								value={copypaste.title}
-								required
-								class="rounded-md w-72 p-2 bg-transparent border border-black dark:border-white focus:outline-none text-md font-semibold focus:border-purple-400 transition-[border-color] duration-200"
+								class="rounded-md w-72 p-2 bg-transparent border border-black dark:border-white text-purple-200 focus:outline-none text-md font-semibold focus:border-purple-400 transition-[border-color] duration-200"
 							/>
 						</div>
 
@@ -110,8 +201,7 @@
 								id="content"
 								cols="18"
 								rows="8"
-								bind:value={copypaste.content}
-								required
+								value={copypaste.content}
 								class="rounded-md w-72 p-2 bg-transparent border border-black dark:border-white focus:outline-none text-sm focus:border-purple-400 transition-[border-color] duration-200"
 							/>
 						</div>
@@ -124,10 +214,14 @@
 									<input
 										type="text"
 										id="add-category"
+										bind:value={editAddCategoryInput}
 										class="rounded-md max-w-28 text-sm py-1 px-2 bg-transparent border border-black dark:border-white focus:border-purple-400 transition-[border-color] duration-300 outline-none"
 									/>
 									<button
 										type="button"
+										on:click={handleEditCategory}
+										bind:this={editAddCategoryButton}
+										disabled={editPending}
 										class="enabled:bg-purple-600/80 enabled:hover:bg-purple-400/50 enabled:transition-[background-color] duration-200 w-fit rounded-full p-1 disabled:bg-slate-500"
 										><svg
 											class="stroke-white"
@@ -151,12 +245,12 @@
 									for="categories">Categories</label
 								>
 								<div class="flex flex-wrap gap-1" id="categories">
-									{#each copypaste.categories as category}
+									{#each editCategories as category}
 										<button
 											on:click={() =>
-												(copypaste.categories = copypaste.categories.filter((c) => c !== category))}
+												(editCategories = editCategories.filter((c) => c !== category))}
 											type="button"
-											disabled={copypaste.categories.length === 1}
+											disabled={editCategories.length === 1}
 											class="bg-slate-600/50 enabled:hover:bg-red-400/50 transition-[background-color] duration-200 rounded-md p-1 px-1.5 cursor-pointer"
 										>
 											{category}
@@ -165,15 +259,33 @@
 								</div>
 							</div>
 						</div>
+						<input type="hidden" name="categories" value={JSON.stringify(editCategories)} />
 					</form>
 				</div>
 				<div class="bg-[#0e1b31] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3">
 					<button
 						type="submit"
-						on:click={() => formElement?.submit()}
-						class="min-w-20 bg-blue-500 hover:bg-blue-400 transition-[background-color] duration-200 py-1.5 px-2 rounded-md"
+						on:click={() => formElement?.requestSubmit()}
+						disabled={editPending}
+						class="enabled:min-w-20 disabled:border border-white disabled:bg-slate-500 enabled:bg-blue-500 enabled:hover:bg-blue-400 transition-[background-color] duration-200 py-1.5 px-2 rounded-md"
 					>
-						Save
+						{#if !editPending}
+							Save
+						{:else}
+							<svg
+								class="stroke-white spin"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path d="M12 3a9 9 0 1 0 9 9" />
+							</svg>
+						{/if}
 					</button>
 					<button
 						type="button"
@@ -187,3 +299,45 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+	.spin {
+		animation: spin 1s linear infinite;
+	}
+
+	:global(.shake-error) {
+		animation: shake 0.82s infinite cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+		transform: translate3d(0, 0, 0);
+		transition-duration: 100ms;
+		background-color: #bd3636 !important;
+	}
+
+	@keyframes shake {
+		10%,
+		90% {
+			transform: translate3d(-1px, 0, 0);
+		}
+
+		20%,
+		80% {
+			transform: translate3d(2px, 0, 0);
+		}
+
+		30%,
+		50%,
+		70% {
+			transform: translate3d(-4px, 0, 0);
+		}
+
+		40%,
+		60% {
+			transform: translate3d(4px, 0, 0);
+		}
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+</style>
