@@ -42,7 +42,8 @@ export const actions = {
 		try {
 			const newGroup = await db.group.create({
 				data: {
-					name: name
+					name: name,
+					admin_id: userId
 				}
 			});
 

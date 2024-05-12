@@ -37,8 +37,9 @@ model Copypaste {
 }
 
 model Group {
-  id   Int    @id @default(autoincrement())
-  name String
+  id       Int    @id @default(autoincrement())
+  name     String
+  admin_id Int
 
   copypastes Copypaste[]
   members    GroupMember[]
