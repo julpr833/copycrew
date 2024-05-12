@@ -3,6 +3,7 @@
 	import NavbarDropdown from '../components/NavbarDropdown.svelte';
 	import NavbarMobileMenu from '../components/NavbarMobileMenu.svelte';
 	import '../app.css';
+	import { FlatToast, ToastContainer } from 'svelte-toasts';
 
 	export let data;
 </script>
@@ -46,3 +47,7 @@
 <main>
 	<slot />
 </main>
+
+<ToastContainer placement="bottom-right" let:data>
+	<FlatToast {data} />
+</ToastContainer>
