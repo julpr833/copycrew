@@ -4,20 +4,16 @@ import { error } from '@sveltejs/kit';
 export async function load({ locals }) {
 	const userId = locals.user.id;
 	try {
-		const groupMember = await db.groupMember.findMany({
+		const groups = await db.groupMember.findMany({
 			where: {
 				user_id: userId
+			},
+			include: {
+				gid: true // This is the group, I don't know why i named it gid I'm straight up stupid.
 			}
 		});
 
-		const groups = await db.group.findMany({
-			where: {
-				id: {
-					in: groupMember.map((member) => member.group_id)
-				}
-			}
-		});
-		return { groups: [...groups] };
+		return { groups: [...groups.map((g) => g.gid)] }; // I will fix this soonTM :D
 	} catch (error) {
 		return {
 			error: 'There was an error while trying to fetch your groups.'
