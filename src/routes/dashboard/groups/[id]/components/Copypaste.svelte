@@ -53,7 +53,7 @@
 		on:blur={() => copypasteElement?.classList.remove('hovered-copypaste')}
 	>
 		<!-- Content -->
-		<p class="text-white text-sm p-2">
+		<p class="text-white text-sm p-2 text-left">
 			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore maiores quos dolor ex
 			voluptatum doloribus autem fugiat voluptatibus sint? Quam facere numquam explicabo dignissimos
 			cum.
