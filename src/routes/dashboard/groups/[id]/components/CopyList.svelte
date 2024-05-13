@@ -1,8 +1,20 @@
 <script>
 	import Copypaste from './Copypaste.svelte';
+
+	export let copypastes;
 </script>
 
 <div class="flex flex-wrap justify-center items-center gap-4 m-8">
 	<!-- each -->
-	<Copypaste />
+	{#if copypastes.length !== 0}
+		{#each copypastes as copypaste}
+			<Copypaste {copypaste} />
+		{/each}
+	{:else}
+		<h2
+			class="text-transparent bg-gradient-to-r from-blue-200 via-purple-300 to-purple-600 bg-clip-text text-xl md:text-2xl font-bold max-w-xl text-center mx-4"
+		>
+			This groups does not have any copypastes yet, press the add button to create one.
+		</h2>
+	{/if}
 </div>

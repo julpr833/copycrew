@@ -3,6 +3,9 @@
 	import Delete from './Delete.svelte';
 	import Edit from './Edit.svelte';
 
+	// Data
+	export let copypaste;
+
 	// Used to animate the glow to add interactivity to the copypaste.
 	let copypasteElement: HTMLDivElement | null = null;
 
@@ -23,14 +26,14 @@
 </script>
 
 <div
-	class="w-[21rem] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.8)] transition-[filter] duration-[125ms]"
+	class="w-[21rem] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.8)] rounded-lg transition-[box-shadow] duration-200"
 	bind:this={copypasteElement}
 >
 	<div class="bg-slate-900 rounded-t-lg p-2">
 		<div class="flex justify-between">
 			<div>
 				<!-- Copypaste name -->
-				<h2 class="text-purple-300 font-semibold">Copypaste name</h2>
+				<h2 class="text-purple-300 font-semibold leading-[1.10rem]">{copypaste.title}</h2>
 			</div>
 			<div class="flex">
 				<!-- Delete and edit button -->
@@ -39,13 +42,13 @@
 			</div>
 		</div>
 
-		<p class="text-white font-medium text-xs">
+		<p class="text-white font-medium text-xs mt-1.5">
 			<!-- Author name -->
-			dave3721
+			{copypaste.author.username}
 		</p>
 	</div>
 	<button
-		class="bg-slate-800"
+		class="bg-slate-800 min-w-full"
 		on:click={copyText}
 		on:mouseover={() => copypasteElement?.classList.add('hovered-copypaste')}
 		on:mouseleave={() => copypasteElement?.classList.remove('hovered-copypaste')}
@@ -54,19 +57,17 @@
 	>
 		<!-- Content -->
 		<p class="text-white text-sm p-2 text-left">
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore maiores quos dolor ex
-			voluptatum doloribus autem fugiat voluptatibus sint? Quam facere numquam explicabo dignissimos
-			cum.
+			{copypaste.content}
 		</p>
 	</button>
 	<div class="bg-slate-900 rounded-b-lg">
 		<!-- Categories -->
-		<p class="text-purple-200 text-xs mx-2 py-1">test, test2, test3</p>
+		<p class="text-purple-200 text-xs mx-2 py-1">{copypaste.categories.join(', ')}</p>
 	</div>
 </div>
 
 <style>
 	:global(.hovered-copypaste) {
-		filter: drop-shadow(0px 0px 14px #816a8f);
+		box-shadow: rgba(119, 91, 134, 0.8) 0 0 14px;
 	}
 </style>
