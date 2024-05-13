@@ -4,14 +4,10 @@
 
 	// groups the user is a member off.
 	export let data;
-	let groups:
-		| {
-				id: number;
-				name: string;
-				admin_id: number;
-		  }[]
-		| undefined = [];
-	$: groups = data.groups;
+	console.log(data);
+
+	let groups: { id: number; name: string; admin_id: number }[] | undefined = [];
+	$: groups = data?.groups;
 </script>
 
 <svelte:head>
