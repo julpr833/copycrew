@@ -44,7 +44,7 @@
 
 		<p class="text-white font-medium text-xs mt-1.5">
 			<!-- Author name -->
-			{copypaste.author.username}
+			By {copypaste.author.username}
 		</p>
 	</div>
 	<button

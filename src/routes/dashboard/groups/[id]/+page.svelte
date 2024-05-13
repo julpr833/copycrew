@@ -12,9 +12,9 @@
 	<h1
 		class="font-medium text-transparent text-2xl bg-clip-text bg-gradient-to-r from-purple-200 via-purple-400 to-purple-500"
 	>
-		{group}
+		{group.name}
 	</h1>
 </div>
 
-<Add />
+<Add {group} />
 <CopyList {copypastes} />
