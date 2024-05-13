@@ -26,7 +26,7 @@
 </script>
 
 <div
-	class="w-[21rem] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.8)] rounded-lg transition-[box-shadow] duration-200"
+	class="w-[21rem] shadow-[0px_4px_4px_rgba(0,0,0,0.8)] rounded-lg transition-[box-shadow, transform] duration-200"
 	bind:this={copypasteElement}
 >
 	<div class="bg-slate-900 rounded-t-lg p-2">
@@ -68,6 +68,6 @@
 
 <style>
 	:global(.hovered-copypaste) {
-		box-shadow: rgba(119, 91, 134, 0.8) 0 0 14px;
+		box-shadow: 0px 0px 4px rgba(119, 91, 134, 1);
 	}
 </style>

@@ -23,9 +23,9 @@
 
 			{#if copypastes.length === 0}
 				<h2
-					class="text-transparent bg-gradient-to-r from-blue-200 via-purple-300 to-purple-600 bg-clip-text text-2xl md:text-3xl font-bold max-w-xl text-center mt-12 mx-4"
+					class="text-transparent text-balance bg-gradient-to-r from-blue-200 via-purple-300 to-purple-600 bg-clip-text text-xl md:text-2xl font-bold max-w-xl text-center mt-12"
 				>
-					You have no copypastas yet, press the add button to create one.
+					You have no copypastes yet, press the add button to create one.
 				</h2>
 			{/if}
 		{/if}
