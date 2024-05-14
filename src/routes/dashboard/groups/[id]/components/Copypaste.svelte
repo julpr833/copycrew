@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { toasts } from 'svelte-toasts';
+	import { page } from '$app/stores';
+
 	import Delete from './Delete.svelte';
 	import Edit from './Edit.svelte';
 
@@ -35,11 +37,13 @@
 				<!-- Copypaste name -->
 				<h2 class="text-purple-300 font-semibold leading-[1.10rem]">{copypaste.title}</h2>
 			</div>
-			<div class="flex">
-				<!-- Delete and edit button -->
-				<Delete />
-				<Edit />
-			</div>
+			{#if $page.data.user.id === copypaste.author_id || $page.data.user.id === copypaste.group.admin_id}
+				<div class="flex">
+					<!-- Delete and edit button -->
+					<Delete id={copypaste.id} group_id={copypaste.group_id} />
+					<Edit />
+				</div>
+			{/if}
 		</div>
 
 		<p class="text-white font-medium text-xs mt-1.5">

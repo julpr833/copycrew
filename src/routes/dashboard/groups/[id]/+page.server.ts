@@ -77,5 +77,49 @@ export const actions = {
 		} catch (error) {
 			console.log(error);
 		}
+	},
+
+	delete: async ({ request, locals }) => {
+		const data = await request.formData();
+		const id = data.get('id');
+		const group_id = data.get('group_id');
+
+		const paste = await db.copypaste.findUnique({
+			where: {
+				id: Number(id),
+				group_id: Number(group_id)
+			},
+			include: {
+				group: {
+					select: {
+						admin_id: true
+					}
+				}
+			}
+		});
+
+		if (!paste || !paste.group) {
+			return error(404, {
+				message: 'Copypaste not found'
+			});
+		}
+
+		if (paste.author_id !== locals.user.id && paste.group.admin_id !== locals.user.id) {
+			return error(403, {
+				message: 'You do not have permission to delete this copypaste'
+			});
+		}
+
+		try {
+			await db.copypaste.delete({
+				where: {
+					id: Number(id)
+				}
+			});
+		} catch {
+			return error(500, {
+				message: 'Something went wrong while deleting your copypaste'
+			});
+		}
 	}
 };

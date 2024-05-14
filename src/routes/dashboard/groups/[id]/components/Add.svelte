@@ -81,6 +81,7 @@
 
 		return ({ result, update }) => {
 			addCopypaste.creating = false;
+			addCopypaste.categories = [];
 
 			switch (result.type) {
 				case 'error':
