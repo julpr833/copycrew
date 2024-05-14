@@ -33,7 +33,7 @@
 	bind:this={copypasteElement}
 	class="flex text-black dark:text-white flex-col m-4 rounded-lg mt-12 max-w-[21rem] min-w-48 transition-[box-shadow] duration-100"
 >
-	<div class="flex items-center text-center w-full gap-2 bg-slate-800 p-1 rounded-t-lg">
+	<div class="flex items-center text-center w-full gap-2 bg-slate-900 p-1 rounded-t-lg">
 		<h2 class="text-left font-bold text-purple-300 my-1.5 mx-1 w-full break-words text-balance">
 			{copypaste.title}
 		</h2>
@@ -44,7 +44,7 @@
 	</div>
 
 	<button
-		class="text-left text-sm break-words focus:outline-none text-balance bg-slate-600 p-2"
+		class="text-left text-sm break-words focus:outline-none text-balance bg-slate-700 p-2"
 		on:click={copyText}
 		on:mouseover={() => {
 			if (copypasteElement instanceof HTMLDivElement) {
@@ -69,7 +69,7 @@
 	>
 		{copypaste.content}
 	</button>
-	<p class="text-xs p-1 rounded-b-lg text-purple-200 bg-slate-800">
+	<p class="text-xs p-1 rounded-b-lg text-purple-200 bg-slate-900">
 		{copypaste.categories.map((c) => ' ' + c)}
 	</p>
 </div>
