@@ -41,7 +41,7 @@
 	};
 </script>
 
-<button on:click={() => (showModal = true)}>
+<button on:click={() => ((showModal = true), (editCategories = copypaste.categories))}>
 	<svg
 		class="stroke-white py-0.5 -mx-0.5 hover:stroke-blue-500 transition-[stroke] duration-200"
 		width="30"
@@ -299,7 +299,7 @@
 					</button>
 					<button
 						type="button"
-						on:click={() => (showModal = false)}
+						on:click={() => ((showModal = false), (editCategories = copypaste.categories))}
 						class="min-w-20 bg-red-500 hover:bg-red-400 transition-[background-color] duration-200 py-1.5 px-2 rounded-md"
 					>
 						Cancel
@@ -313,36 +313,6 @@
 <style>
 	.spin {
 		animation: spin 1s linear infinite;
-	}
-
-	:global(.shake-error) {
-		animation: shake 0.82s infinite cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-		transform: translate3d(0, 0, 0);
-		transition-duration: 100ms;
-		background-color: #bd3636 !important;
-	}
-
-	@keyframes shake {
-		10%,
-		90% {
-			transform: translate3d(-1px, 0, 0);
-		}
-
-		20%,
-		80% {
-			transform: translate3d(2px, 0, 0);
-		}
-
-		30%,
-		50%,
-		70% {
-			transform: translate3d(-4px, 0, 0);
-		}
-
-		40%,
-		60% {
-			transform: translate3d(4px, 0, 0);
-		}
 	}
 
 	@keyframes spin {

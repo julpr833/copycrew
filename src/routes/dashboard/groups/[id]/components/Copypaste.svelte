@@ -41,7 +41,7 @@
 				<div class="flex">
 					<!-- Delete and edit button -->
 					<Delete id={copypaste.id} group_id={copypaste.group_id} />
-					<Edit />
+					<Edit {copypaste} group_id={copypaste.group_id} />
 				</div>
 			{/if}
 		</div>
