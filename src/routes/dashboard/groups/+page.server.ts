@@ -56,5 +56,40 @@ export const actions = {
 		} catch (error) {
 			console.log(error);
 		}
+	},
+
+	deleteGroup: async ({ request, locals }) => {
+		const userId = locals.user.id;
+		const data = await request.formData();
+		const groupId = data.get('group_id');
+
+		if (!groupId) {
+			return error(400, { message: 'Group ID is required' });
+		}
+
+		let group = null;
+
+		try {
+			group = await db.group.findUnique({
+				where: {
+					id: +groupId
+				}
+			});
+		} catch {
+			return error(400, { message: 'Invalid group ID' });
+		}
+
+		if (!group) return error(400, { message: 'Group not found' });
+
+		if (userId !== group?.admin_id)
+			return error(403, { message: 'You do not have permission to delete this group' });
+
+		try {
+			await db.group.delete({
+				where: { id: +groupId }
+			});
+		} catch {
+			return error(500, { message: 'Failed to delete group' });
+		}
 	}
 };

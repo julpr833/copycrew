@@ -32,7 +32,7 @@ model Copypaste {
   author    User @relation(fields: [author_id], references: [id])
   author_id Int
 
-  group    Group? @relation(fields: [group_id], references: [id])
+  group    Group? @relation(fields: [group_id], references: [id], onDelete: Cascade)
   group_id Int?
 }
 
@@ -48,7 +48,7 @@ model Group {
 model GroupMember {
   id       User  @relation(fields: [user_id], references: [id])
   user_id  Int
-  gid      Group @relation(fields: [group_id], references: [id])
+  gid      Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
   group_id Int
 
   @@unique([user_id, group_id])

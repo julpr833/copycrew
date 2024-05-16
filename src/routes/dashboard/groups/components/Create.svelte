@@ -87,7 +87,7 @@
 	<div
 		transition:fade={{ duration: 180 }}
 		role="dialog"
-		class="fixed z-50 bg-slate-900/50 h-full w-full top-0 left-0 flex flex-col items-center justify-center"
+		class="fixed z-10 bg-slate-900/50 h-full w-full top-0 left-0 flex flex-col items-center justify-center"
 	>
 		<div class="max-w-96 w-fit sm:w-full">
 			<div class="bg-slate-950 p-4 rounded-t-lg">
