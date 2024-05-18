@@ -35,7 +35,7 @@
 				<div class="flex flex-wrap max-w-4xl gap-4">
 					{#each groups as group}
 						<div
-							class="flex items-center gap-2 py-2 px-2.5 bg-slate-900 rounded-xl text-purple-400 font-bold"
+							class="h-fit flex flex-col items-center py-2.5 px-3 bg-slate-900 rounded-xl text-purple-400 font-bold"
 						>
 							<a
 								data-sveltekit-preload-data="tap"
@@ -43,9 +43,11 @@
 								href="/dashboard/groups/{group.id}">{group.name}</a
 							>
 							{#if data.user.id === group.admin_id}
-								<CopyInvite inviteCode={group.inviteCode} />
-								<Delete id={group.id} />
-								<Edit name={group.name} id={group.id} />
+								<div class="flex gap-2">
+									<CopyInvite inviteCode={group.inviteCode} />
+									<Delete id={group.id} />
+									<Edit name={group.name} id={group.id} />
+								</div>
 							{/if}
 						</div>
 					{/each}
