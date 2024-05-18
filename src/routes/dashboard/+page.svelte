@@ -67,46 +67,6 @@
 				</div>
 				<p class="mt-4 text-left">View the copypastes posted in the groups you have joined</p>
 			</button>
-			<button
-				on:click={() => goto('/dashboard/groups/create')}
-				class="bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
-			>
-				<div class="flex gap-1 items-center text-purple-400 stroke-purple-400">
-					<svg
-						width="32"
-						height="32"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						fill="none"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-						<path
-							d="M9 3h-4a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2z"
-							stroke-width="0"
-							fill="currentColor"
-						/>
-						<path
-							d="M9 13h-4a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2z"
-							stroke-width="0"
-							fill="currentColor"
-						/>
-						<path
-							d="M19 13h-4a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2z"
-							stroke-width="0"
-							fill="currentColor"
-						/>
-						<path
-							d="M17 3a1 1 0 0 1 .993 .883l.007 .117v2h2a1 1 0 0 1 .117 1.993l-.117 .007h-2v2a1 1 0 0 1 -1.993 .117l-.007 -.117v-2h-2a1 1 0 0 1 -.117 -1.993l.117 -.007h2v-2a1 1 0 0 1 1 -1z"
-							stroke-width="0"
-							fill="currentColor"
-						/>
-					</svg>
-					<h3 class="text-xl font-bold font-sans">Create group</h3>
-				</div>
-				<p class="mt-4 text-left">Create a group to share copypastes between your friends</p>
-			</button>
 		</div>
 		<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-1/2 max-w-2xl mt-8 mb-4" />
 		<div class="bg-slate-800 text-white w-full max-w-md mt-4 rounded-lg flex flex-col items-center">

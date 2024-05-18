@@ -58,6 +58,35 @@ export const actions = {
 		}
 	},
 
+	renameGroup: async ({ request, locals }) => {
+		const userId = locals.user.id;
+		const data = await request.formData();
+
+		let { group_id: groupId, name } = Object.fromEntries(data);
+		name = name.toString();
+
+		if (!name) {
+			return error(400, { message: 'Name is required' });
+		}
+
+		if (name.length < 4 || name.length > 32) {
+			return error(400, { message: 'Name must be between 4 and 32 characters long' });
+		}
+
+		try {
+			await db.group.update({
+				where: {
+					id: +groupId
+				},
+				data: {
+					name
+				}
+			});
+		} catch {
+			return error(500, { message: 'Failed to rename group' });
+		}
+	},
+
 	deleteGroup: async ({ request, locals }) => {
 		const userId = locals.user.id;
 		const data = await request.formData();

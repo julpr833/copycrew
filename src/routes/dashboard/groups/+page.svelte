@@ -2,6 +2,7 @@
 <script lang="ts">
 	import Create from './components/Create.svelte';
 	import Delete from './components/Delete.svelte';
+	import Edit from './components/Edit.svelte';
 
 	// groups the user is a member off.
 	export let data;
@@ -72,6 +73,7 @@
 							>
 							{#if data.user.id === group.admin_id}
 								<Delete id={group.id} />
+								<Edit name={group.name} id={group.id} />
 							{/if}
 						</div>
 					{/each}
