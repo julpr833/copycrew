@@ -37,9 +37,10 @@ model Copypaste {
 }
 
 model Group {
-  id       Int    @id @default(autoincrement())
-  name     String
-  admin_id Int
+  id         Int    @id @default(autoincrement())
+  name       String
+  admin_id   Int
+  inviteCode String @unique
 
   copypastes Copypaste[]
   members    GroupMember[]

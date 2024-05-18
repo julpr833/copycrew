@@ -1,5 +1,9 @@
 import db from '$lib/database.js';
+import { join } from '@prisma/client/runtime/library';
 import { error } from '@sveltejs/kit';
+
+// For generating invite codes
+import { nanoid } from 'nanoid';
 
 export async function load({ locals }) {
 	const userId = locals.user.id;
@@ -39,7 +43,8 @@ export const actions = {
 			const newGroup = await db.group.create({
 				data: {
 					name: name,
-					admin_id: userId
+					admin_id: userId,
+					inviteCode: nanoid(8)
 				}
 			});
 
@@ -119,6 +124,56 @@ export const actions = {
 			});
 		} catch {
 			return error(500, { message: 'Failed to delete group' });
+		}
+	},
+
+	join: async ({ request, locals }) => {
+		const userId = locals.user.id;
+		const data = await request.formData();
+		const inviteCode = data.get('inviteCode')?.toString();
+
+		if (!inviteCode) {
+			return error(400, { message: 'Invite code is required' });
+		}
+
+		let group = null;
+
+		try {
+			group = await db.group.findUnique({
+				where: {
+					inviteCode
+				}
+			});
+		} catch {
+			return error(500, { message: 'Invalid invite code' });
+		}
+
+		if (!group) {
+			return error(400, { message: 'Invalid invite code' });
+		}
+
+		try {
+			await db.groupMember.create({
+				data: {
+					user_id: userId,
+					group_id: group.id
+				}
+			});
+		} catch {
+			return error(500, { message: 'Failed to join group' });
+		}
+
+		try {
+			await db.group.update({
+				where: {
+					id: group.id
+				},
+				data: {
+					inviteCode: nanoid(8)
+				}
+			});
+		} catch {
+			return error(500, { message: 'Internal error, contact support' });
 		}
 	}
 };
