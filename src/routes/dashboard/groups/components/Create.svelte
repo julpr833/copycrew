@@ -4,7 +4,6 @@
 	import { goto } from '$app/navigation';
 	import { toasts } from 'svelte-toasts';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { updated } from '$app/stores';
 
 	let createGroup = {
 		showForm: false,
