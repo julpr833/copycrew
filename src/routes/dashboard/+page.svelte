@@ -69,7 +69,9 @@
 			</button>
 		</div>
 		<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-1/2 max-w-2xl mt-8 mb-4" />
-		<div class="bg-slate-800 text-white w-full max-w-md mt-4 rounded-lg flex flex-col items-center">
+		<div
+			class="bg-slate-800 text-white px-8 md:px-4 md:w-full max-w-md mt-4 mx-4 rounded-lg flex flex-col items-center"
+		>
 			<h2 class="text-3xl mt-2">Changelog</h2>
 			<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-full my-2" />
 			<ul class="self-baseline mx-8 mt-2 mb-4 font-mono">

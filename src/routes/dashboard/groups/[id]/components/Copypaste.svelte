@@ -52,7 +52,7 @@
 		</p>
 	</div>
 	<button
-		class="bg-slate-800 min-w-full"
+		class="flex bg-slate-800 min-w-full"
 		on:click={copyText}
 		on:mouseover={() => copypasteElement?.classList.add('hovered-copypaste')}
 		on:mouseleave={() => copypasteElement?.classList.remove('hovered-copypaste')}
@@ -60,7 +60,7 @@
 		on:blur={() => copypasteElement?.classList.remove('hovered-copypaste')}
 	>
 		<!-- Content -->
-		<p class="text-white text-sm p-2 text-left">
+		<p class="max-w-[21rem] text-white break-words text-balance text-sm p-2 text-left">
 			{copypaste.content}
 		</p>
 	</button>
