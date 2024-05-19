@@ -75,6 +75,7 @@
 			<h2 class="text-3xl mt-2">Changelog</h2>
 			<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-full my-2" />
 			<ul class="self-baseline mx-8 mt-2 mb-4 font-mono">
+				<li class="before:content-['>'] before:mr-2">you can now leave groups</li>
 				<li class="before:content-['>'] before:mr-2">joining groups added</li>
 				<li class="before:content-['>'] before:mr-2">renaming groups added</li>
 				<li class="before:content-['>'] before:mr-2">you can now edit group copypastes</li>
@@ -84,7 +85,6 @@
 				<li class="before:content-['>'] before:mr-2">group page added</li>
 				<li class="before:content-['>'] before:mr-2">you can now create groups</li>
 				<li class="before:content-['>'] before:mr-2">remade navbar dropdown</li>
-				<li class="before:content-['>'] before:mr-2">polished copypaste features</li>
 			</ul>
 		</div>
 	</div>
