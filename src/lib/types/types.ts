@@ -1,10 +1,10 @@
 export interface UserCookieData {
-	id?: number;
+	id?: string;
 	email?: string;
 }
 
 export interface User {
-	id: number;
+	id: string;
 	username: string;
 	email: string;
 	password: string;
@@ -18,7 +18,7 @@ export interface Copypaste {
 	categories: string[];
 	content: string;
 	author: User;
-	author_id: number;
+	author_id: string;
 	group?: Group;
 	group_id?: number;
 }
