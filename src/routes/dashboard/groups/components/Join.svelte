@@ -5,6 +5,8 @@
 	import { goto } from '$app/navigation';
 	import { toasts } from 'svelte-toasts';
 
+	import { slide } from 'svelte/transition';
+
 	const joinGroup = {
 		showForm: false,
 		toggleForm: () => (joinGroup.showForm = !joinGroup.showForm),
@@ -113,7 +115,10 @@
 						</div>
 					</div>
 				</div>
-				<div class="flex flex-col justify-center bg-slate-800 px-4 pt-4 pb-4 sm:p-5 sm:pb-3">
+				<div
+					class="flex flex-col justify-center bg-slate-800 px-4 pt-4 pb-4 sm:p-5 sm:pb-3"
+					transition:slide
+				>
 					<input
 						name="inviteCode"
 						type="text"
@@ -121,7 +126,7 @@
 						placeholder="Invite code"
 					/>
 					{#if joinGroup.errorMessage}
-						<p class="text-xs px-2 pt-2 text-red-500">{joinGroup.errorMessage}</p>
+						<p class="text-xs px-2 pt-2 text-red-500" transition:slide>{joinGroup.errorMessage}</p>
 					{/if}
 				</div>
 				<div class="flex gap-2 bg-slate-900 p-4 rounded-b-lg">

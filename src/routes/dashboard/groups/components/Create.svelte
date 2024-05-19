@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
+	import { fade, slide } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { toasts } from 'svelte-toasts';
@@ -93,7 +93,7 @@
 				<h1 class="text-2xl font-bold">Create a group</h1>
 			</div>
 			<form action="?/create" method="POST" use:enhance={handleForm}>
-				<div class="bg-slate-900 p-4 flex flex-col">
+				<div class="bg-slate-900 p-4 flex flex-col" transition:slide>
 					<label for="name" class="text-xs font-medium tracking-wide mb-1.5 pl-2">Group name</label>
 					<input
 						type="text"

@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { toasts } from 'svelte-toasts';
-	import { fade } from 'svelte/transition';
+	import { fade, slide } from 'svelte/transition';
 
 	// Props
 	export let name;
@@ -84,7 +84,7 @@
 			</div>
 			<form action="?/renameGroup" method="POST" use:enhance={handleForm}>
 				<input type="hidden" name="group_id" value={id} />
-				<div class="bg-slate-900 p-4 flex flex-col">
+				<div class="bg-slate-900 p-4 flex flex-col" transition:slide>
 					<label for="name" class="text-xs font-medium tracking-wide mb-1.5 pl-2">Group name</label>
 					<input
 						type="text"

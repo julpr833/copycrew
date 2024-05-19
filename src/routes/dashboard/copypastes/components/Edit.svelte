@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
+	import { fade, slide } from 'svelte/transition';
 	import { copypastesStore } from '../stores/copypaste.store';
 	import { page } from '$app/stores';
 	import { applyAction, enhance } from '$app/forms';
@@ -108,7 +108,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="bg-[#152642] px-4 py-3 sm:px-6 flex justify-center">
+				<div class="bg-[#152642] px-4 py-3 sm:px-6 flex justify-center" transition:slide>
 					<form
 						action="?/edit"
 						method="POST"
