@@ -36,7 +36,7 @@ export async function load({ params, locals }) {
 		throw redirect(303, '/dashboard/groups');
 
 	return {
-		group: { name: group.name, id: group.id },
+		group: { name: group.name, id: group.id, admin_id: group.admin_id },
 		copypastes: group.copypastes
 	};
 }

@@ -17,4 +17,4 @@
 </div>
 
 <Add {group} />
-<CopyList {copypastes} />
+<CopyList {copypastes} admin_id={group.admin_id} />

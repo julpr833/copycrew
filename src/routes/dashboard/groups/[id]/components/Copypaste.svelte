@@ -7,6 +7,7 @@
 
 	// Data
 	export let copypaste;
+	export let admin_id;
 
 	// Used to animate the glow to add interactivity to the copypaste.
 	let copypasteElement: HTMLDivElement | null = null;
@@ -37,7 +38,7 @@
 				<!-- Copypaste name -->
 				<h2 class="text-purple-300 font-semibold leading-[1.10rem]">{copypaste.title}</h2>
 			</div>
-			{#if $page.data.user.id === copypaste.author_id || $page.data.user.id === copypaste.group.admin_id}
+			{#if $page.data.user.id === copypaste.author_id || $page.data.user.id === admin_id}
 				<div class="flex">
 					<!-- Delete and edit button -->
 					<Delete id={copypaste.id} group_id={copypaste.group_id} />

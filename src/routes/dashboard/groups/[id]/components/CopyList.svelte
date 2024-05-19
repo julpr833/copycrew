@@ -2,13 +2,14 @@
 	import Copypaste from './Copypaste.svelte';
 
 	export let copypastes;
+	export let admin_id;
 </script>
 
 <div class="flex flex-wrap justify-center items-center gap-4 m-8">
 	<!-- each -->
 	{#if copypastes.length !== 0}
 		{#each copypastes as copypaste}
-			<Copypaste {copypaste} />
+			<Copypaste {copypaste} {admin_id} />
 		{/each}
 	{:else}
 		<h2
