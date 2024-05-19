@@ -1,5 +1,4 @@
 import db from '$lib/database.js';
-import { join } from '@prisma/client/runtime/library';
 import { error } from '@sveltejs/kit';
 
 // For generating invite codes
@@ -174,6 +173,46 @@ export const actions = {
 			});
 		} catch {
 			return error(500, { message: 'Internal error, contact support' });
+		}
+	},
+
+	leave: async ({ request, locals }) => {
+		const userId = locals.user.id;
+		const data = await request.formData();
+		const groupId = data.get('group_id');
+
+		if (!groupId) {
+			return error(400, { message: 'Group ID is required' });
+		}
+
+		let group = null;
+
+		try {
+			group = await db.group.findUnique({
+				where: {
+					id: +groupId
+				}
+			});
+		} catch {
+			return error(400, { message: 'Invalid group ID' });
+		}
+
+		if (!group) return error(400, { message: 'Group not found' });
+
+		if (userId === group?.admin_id)
+			return error(400, { message: 'You cannot leave your own group' });
+
+		try {
+			await db.groupMember.delete({
+				where: {
+					user_id_group_id: {
+						user_id: userId,
+						group_id: +groupId
+					}
+				}
+			});
+		} catch {
+			return error(500, { message: 'Failed to leave group' });
 		}
 	}
 };
