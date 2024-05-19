@@ -14,13 +14,14 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   username String @unique
   email    String @unique
   password String
 
   Copypaste Copypaste[]
   groups    GroupMember[]
+  Group     Group[]
 }
 
 model Copypaste {
@@ -29,17 +30,20 @@ model Copypaste {
   categories String[]
   content    String
 
-  author    User @relation(fields: [author_id], references: [id])
-  author_id Int
+  author    User   @relation(fields: [author_id], references: [id])
+  author_id String
 
   group    Group? @relation(fields: [group_id], references: [id], onDelete: Cascade)
   group_id Int?
 }
 
 model Group {
-  id         Int    @id @default(autoincrement())
-  name       String
-  admin_id   Int
+  id   Int    @id @default(autoincrement())
+  name String
+
+  admin    User   @relation(fields: [admin_id], references: [id])
+  admin_id String
+
   inviteCode String @unique
 
   copypastes Copypaste[]
@@ -47,9 +51,9 @@ model Group {
 }
 
 model GroupMember {
-  id       User  @relation(fields: [user_id], references: [id])
-  user_id  Int
-  gid      Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  id       User   @relation(fields: [user_id], references: [id])
+  user_id  String
+  gid      Group  @relation(fields: [group_id], references: [id], onDelete: Cascade)
   group_id Int
 
   @@unique([user_id, group_id])
