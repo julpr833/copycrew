@@ -7,16 +7,30 @@ import { nanoid } from 'nanoid';
 export async function load({ locals }) {
 	const userId = locals.user.id;
 	try {
-		const groups = await db.groupMember.findMany({
+		const groups = await db.group.findMany({
 			where: {
-				user_id: userId
+				members: {
+					some: {
+						user_id: userId
+					}
+				}
 			},
 			include: {
-				gid: true // This is the group, I don't know why i named it gid I'm straight up stupid.
+				members: {
+					include: {
+						id: {
+							select: {
+								username: true
+							}
+						}
+					}
+				}
+			},
+			orderBy: {
+				id: 'desc'
 			}
 		});
-
-		return { groups: [...groups.map((g) => g.gid)] }; // I will fix this soonTM :D
+		return { groups };
 	} catch (error) {
 		return {
 			error: 'There was an error while trying to fetch your groups.'

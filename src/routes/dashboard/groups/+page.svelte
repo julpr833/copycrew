@@ -6,12 +6,23 @@
 	import Edit from './components/Edit.svelte';
 	import Join from './components/Join.svelte';
 	import LeaveGroup from './components/LeaveGroup.svelte';
+	import Members from './components/Members.svelte';
 
 	// groups the user is a member off.
 	export let data;
 
-	let groups: { id: number; name: string; admin_id: string; inviteCode: string }[] | undefined = [];
-	$: groups = data?.groups;
+	type Groups =
+		| ({ members: { user_id: string; group_id: number }[] } & {
+				id: number;
+				name: string;
+				admin_id: string;
+				inviteCode: string;
+		  })[]
+		| undefined;
+	let groups: Groups;
+	$: {
+		groups = data?.groups;
+	}
 </script>
 
 <svelte:head>
@@ -53,6 +64,7 @@
 							{#if data.user.id !== group.admin_id}
 								<LeaveGroup group_name={group.name} group_id={group.id} />
 							{/if}
+							<Members {group} />
 						</div>
 					{/each}
 				</div>
