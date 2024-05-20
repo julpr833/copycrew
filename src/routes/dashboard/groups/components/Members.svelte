@@ -46,7 +46,9 @@
 	>
 		<div class="min-w-80 max-w-md">
 			<div class="bg-slate-900 px-4 py-5 rounded-t-lg">
-				<h3 class="text-xl font-bold font-sans">{group.name}</h3>
+				<h3 class="text-purple-200 tracking-wide text-2xl text-center font-semibold">
+					{group.name}
+				</h3>
 			</div>
 			<div>
 				{#each group.members as member}
