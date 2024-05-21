@@ -44,7 +44,7 @@
 			-webkit-text-fill-color: transparent;
 		}
 		.logo-svg {
-			stroke: #9200af;
+			stroke: #9c45ff9c;
 		}
 	}
 </style>
