@@ -52,8 +52,46 @@
 			</div>
 			<div>
 				{#each group.members as member}
-					<div class="bg-slate-800 px-6 py-3 flex gap-1 items-center font-sans text-white">
+					<div
+						class="bg-slate-800 px-6 py-3 flex justify-between gap-1 items-center font-sans text-white border-b border-b-slate-600/30"
+					>
 						<p>{member.id.username}</p>
+						<div class="flex items-center gap-1">
+							<button>
+								<svg
+									class="stroke-red-500 fill-none hover:stroke-red-300 duration-200 transition-[stroke]"
+									width="28"
+									height="28"
+									viewBox="0 0 24 24"
+									stroke-width="2.5"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+									<path d="M5.7 5.7l12.6 12.6" />
+								</svg>
+							</button>
+							<button
+								><svg
+									class="stroke-yellow-500 fill-none hover:stroke-yellow-200 duration-200 transition-[stroke]"
+									width="32"
+									height="29"
+									viewBox="0 0 24 24"
+									stroke-width="2.5"
+									stroke="#000000"
+									fill="none"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+									<path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
+									<path d="M22 22l-5 -5" />
+									<path d="M17 22l5 -5" />
+								</svg></button
+							>
+						</div>
 					</div>
 				{/each}
 			</div>

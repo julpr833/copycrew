@@ -47,24 +47,24 @@
 				<div class="flex flex-wrap max-w-4xl gap-4">
 					{#each groups as group}
 						<div
-							class="h-fit flex flex-col items-center py-2.5 px-3 bg-slate-900 rounded-xl text-purple-400 font-bold"
+							class="h-fit flex flex-col items-center py-2.5 px-3 bg-slate-900 rounded-xl font-bold"
 						>
 							<a
 								data-sveltekit-preload-data="tap"
-								class="hover:text-purple-300 transition-[color] duration-200"
+								class="text-2xl py-1.5 text-purple-400 hover:text-purple-600 transition-[color] duration-200"
 								href="/dashboard/groups/{group.id}">{group.name}</a
 							>
-							{#if data.user.id === group.admin_id}
-								<div class="flex gap-2">
+							<div class="flex gap-2">
+								{#if data.user.id === group.admin_id}
 									<CopyInvite inviteCode={group.inviteCode} />
 									<Delete id={group.id} />
 									<Edit name={group.name} id={group.id} />
-								</div>
-							{/if}
-							{#if data.user.id !== group.admin_id}
-								<LeaveGroup group_name={group.name} group_id={group.id} />
-							{/if}
-							<Members {group} />
+								{/if}
+								{#if data.user.id !== group.admin_id}
+									<LeaveGroup group_name={group.name} group_id={group.id} />
+								{/if}
+								<Members {group} />
+							</div>
 						</div>
 					{/each}
 				</div>
