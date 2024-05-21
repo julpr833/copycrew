@@ -228,5 +228,47 @@ export const actions = {
 		} catch {
 			return error(500, { message: 'Failed to leave group' });
 		}
+	},
+
+	kickMember: async ({ request, locals }) => {
+		const userId = locals.user.id;
+		const data = await request.formData();
+		const memberId = data.get('member_id')?.toString();
+		const groupId = data.get('group_id')?.toString();
+
+		if (!memberId || !groupId)
+			return error(400, { message: 'Member ID and group ID are required' });
+
+		if (userId === memberId) return error(400, { message: 'You cannot kick yourself' });
+
+		let group = null;
+
+		try {
+			group = await db.group.findUnique({
+				where: {
+					id: +groupId
+				}
+			});
+		} catch {
+			return error(400, { message: 'Invalid group ID' });
+		}
+
+		if (!group) return error(400, { message: 'Group not found' });
+
+		if (group.admin_id === memberId)
+			return error(400, { message: 'You cannot kick the group admin' });
+
+		try {
+			await db.groupMember.delete({
+				where: {
+					user_id_group_id: {
+						user_id: memberId,
+						group_id: +groupId
+					}
+				}
+			});
+		} catch {
+			return error(500, { message: 'Failed to kick member' });
+		}
 	}
 };

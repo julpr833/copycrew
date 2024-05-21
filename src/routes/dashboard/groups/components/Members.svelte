@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
+	import { page } from '$app/stores';
+	import Kick from './Kick.svelte';
 
 	export let group;
 
@@ -56,42 +58,29 @@
 						class="bg-slate-800 px-6 py-3 flex justify-between gap-1 items-center font-sans text-white border-b border-b-slate-600/30"
 					>
 						<p>{member.id.username}</p>
-						<div class="flex items-center gap-1">
-							<button>
-								<svg
-									class="stroke-red-500 fill-none hover:stroke-red-300 duration-200 transition-[stroke]"
-									width="28"
-									height="28"
-									viewBox="0 0 24 24"
-									stroke-width="2.5"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+						{#if $page.data.user.id === group.admin_id && member.user_id !== group.admin_id}
+							<div class="flex items-center gap-1.5">
+								<button
+									class="text-sm font-medium flex items-center gap-1 py-1 px-1.5 bg-red-500 rounded-md hover:bg-red-300 transition-[background-color] duration-200"
 								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-									<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-									<path d="M5.7 5.7l12.6 12.6" />
-								</svg>
-							</button>
-							<button
-								><svg
-									class="stroke-yellow-500 fill-none hover:stroke-yellow-200 duration-200 transition-[stroke]"
-									width="32"
-									height="29"
-									viewBox="0 0 24 24"
-									stroke-width="2.5"
-									stroke="#000000"
-									fill="none"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-									<path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-									<path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
-									<path d="M22 22l-5 -5" />
-									<path d="M17 22l5 -5" />
-								</svg></button
-							>
-						</div>
+									<svg
+										class="stroke-white fill-none"
+										width="20"
+										height="20"
+										viewBox="0 0 24 24"
+										stroke-width="2.5"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+										<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+										<path d="M5.7 5.7l12.6 12.6" />
+									</svg>
+									Ban
+								</button>
+								<Kick {member} />
+							</div>
+						{/if}
 					</div>
 				{/each}
 			</div>
