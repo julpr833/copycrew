@@ -39,7 +39,7 @@
 <button
 	type="button"
 	on:click={banMember.toggleForm}
-	class="text-sm font-medium flex items-center gap-1 py-1 px-1.5 bg-red-500 rounded-md hover:bg-red-300 transition-[background-color] duration-200"
+	class="text-sm text-white font-medium flex items-center gap-1 py-1 px-1.5 bg-red-500 rounded-md hover:bg-red-300 transition-[background-color] duration-200"
 >
 	<svg
 		class="stroke-white fill-none"

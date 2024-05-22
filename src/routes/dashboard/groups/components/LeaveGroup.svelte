@@ -38,7 +38,7 @@
 
 <button
 	on:click={leaveGroup.toggleForm}
-	class="py-0.5 stroke-white hover:stroke-orange-500 transition-[stroke] duration-200"
+	class="py-0.5 stroke-black dark:stroke-white hover:stroke-orange-500 transition-[stroke] duration-200"
 >
 	<svg
 		width="28"
@@ -66,7 +66,7 @@
 		<div class="max-w-md">
 			<form action="?/leave" method="POST" use:enhance={handleForm}>
 				<input type="hidden" name="group_id" value={group_id} />
-				<div class="flex bg-slate-900 p-4 rounded-t-lg">
+				<div class="flex bg-purple-900 dark:bg-slate-900 p-4 rounded-t-lg">
 					<div
 						class="mx-auto flex-shrink-0 mt-2 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
 					>
@@ -84,7 +84,7 @@
 							Are you sure you wanna leave <span class="text-red-300">{group_name}</span>?
 						</h3>
 						<div class="mt-2">
-							<p class="text-sm text-gray-400">
+							<p class="text-sm text-gray-200 dark:text-gray-400">
 								You can't undo this action and you will have to ask for another invite code to join
 								again.
 							</p>
@@ -92,7 +92,7 @@
 					</div>
 				</div>
 
-				<div class="flex gap-2 bg-slate-900 p-4 rounded-b-lg">
+				<div class="flex gap-2 bg-purple-950 dark:bg-slate-900 p-4 rounded-b-lg">
 					<button
 						type="submit"
 						disabled={leaveGroup.submitting}
@@ -119,7 +119,7 @@
 					<button
 						type="button"
 						on:click={() => (leaveGroup.showForm = false)}
-						class="w-full bg-slate-700 hover:bg-slate-800 transition-[background-color] duration-200 text-white font-bold py-2 px-4 rounded"
+						class="w-full bg-slate-500 dark:bg-slate-700 hover:bg-slate-800 transition-[background-color] duration-200 text-white font-bold py-2 px-4 rounded"
 						>Cancel</button
 					>
 				</div>

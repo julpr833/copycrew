@@ -16,7 +16,7 @@
 
 <button on:click={copyInvite}>
 	<svg
-		class="stroke-white py-0.5 -mr-2 hover:stroke-yellow-500 transition-[stroke] duration-200"
+		class="stroke-black dark:stroke-white py-0.5 -mr-2 hover:stroke-yellow-500 transition-[stroke] duration-200"
 		width="30"
 		height="30"
 		viewBox="0 0 24 24"

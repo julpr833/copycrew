@@ -82,7 +82,7 @@
 			<div
 				class="inline-block align-bottom rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
 			>
-				<div class="bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+				<div class="bg-purple-900 dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 					<div class="sm:flex sm:items-start">
 						<div
 							class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10"
@@ -102,13 +102,18 @@
 							</svg>
 						</div>
 						<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-							<h3 class="text-lg leading-6 font-medium text-balance" id="modal-title">
-								You are currently editing <span class="text-purple-300">"{copypaste.title}"</span>
+							<h3 class="text-lg leading-6 font-medium text-balance text-white" id="modal-title">
+								You are currently editing <span class="text-purple-200 dark:text-purple-300"
+									>"{copypaste.title}"</span
+								>
 							</h3>
 						</div>
 					</div>
 				</div>
-				<div class="bg-[#152642] px-4 py-3 sm:px-6 flex justify-center" transition:slide>
+				<div
+					class="bg-purple-300 dark:bg-[#152642] px-4 py-3 sm:px-6 flex justify-center"
+					transition:slide
+				>
 					<form
 						action="?/edit"
 						method="POST"
@@ -197,7 +202,7 @@
 								name="title"
 								id="title"
 								value={copypaste.title}
-								class="rounded-md w-72 p-2 bg-transparent border border-black dark:border-white text-purple-200 focus:outline-none text-md font-semibold focus:border-purple-400 transition-[border-color] duration-200"
+								class="rounded-md w-72 p-2 bg-transparent border border-black dark:border-white text-purple-950 dark:text-purple-200 focus:outline-none text-md font-semibold focus:border-purple-400 transition-[border-color] duration-200"
 							/>
 						</div>
 
@@ -261,7 +266,7 @@
 												(editCategories = editCategories.filter((c) => c !== category))}
 											type="button"
 											disabled={editCategories.length === 1}
-											class="bg-slate-600/50 enabled:hover:bg-red-400/50 transition-[background-color] duration-200 rounded-md p-1 px-1.5 cursor-pointer"
+											class=" text-white bg-purple-700/50 dark:bg-slate-600/50 enabled:hover:bg-red-400/50 transition-[background-color] duration-200 rounded-md p-1 px-1.5 cursor-pointer"
 										>
 											{category}
 										</button>
@@ -272,12 +277,14 @@
 						<input type="hidden" name="categories" value={JSON.stringify(editCategories)} />
 					</form>
 				</div>
-				<div class="bg-[#0e1b31] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3">
+				<div
+					class="bg-purple-950 dark:bg-[#0e1b31] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3"
+				>
 					<button
 						type="submit"
 						on:click={() => formElement?.requestSubmit()}
 						disabled={editPending}
-						class="enabled:min-w-20 disabled:border border-white disabled:bg-slate-500 enabled:bg-blue-500 enabled:hover:bg-blue-400 transition-[background-color] duration-200 py-1.5 px-2 rounded-md"
+						class="text-white font-semibold enabled:min-w-20 disabled:border border-white disabled:bg-slate-500 enabled:bg-blue-500 enabled:hover:bg-blue-400 transition-[background-color] duration-200 py-1.5 px-2 rounded-md"
 					>
 						{#if !editPending}
 							Save
@@ -300,7 +307,7 @@
 					<button
 						type="button"
 						on:click={() => ((showModal = false), (editCategories = copypaste.categories))}
-						class="min-w-20 bg-red-500 hover:bg-red-400 transition-[background-color] duration-200 py-1.5 px-2 rounded-md"
+						class="text-white font-semibold min-w-20 bg-red-500 hover:bg-red-400 transition-[background-color] duration-200 py-1.5 px-2 rounded-md"
 					>
 						Cancel
 					</button>

@@ -39,7 +39,7 @@
 		{#if groups}
 			{#if groups.length < 1}
 				<h1
-					class="text-transparent text-center font-bold text-lg md:text-2xl bg-gradient-to-r from-blue-200 via-purple-300 to-purple-500 bg-clip-text mx-3"
+					class="text-transparent text-center font-bold text-lg md:text-2xl bg-gradient-to-r from-purple-800 dark:from-blue-200 via-violet-500 dark:via-purple-300 to-purple-500 bg-clip-text mx-3"
 				>
 					You are not a member of any groups yet, create or join one!
 				</h1>
@@ -47,11 +47,11 @@
 				<div class="flex flex-wrap max-w-4xl gap-4">
 					{#each groups as group}
 						<div
-							class="h-fit flex flex-col items-center py-2.5 px-3 bg-slate-900 rounded-xl font-bold"
+							class="h-fit flex flex-col items-center py-2.5 px-3 bg-slate-200 dark:bg-slate-900 rounded-xl font-bold"
 						>
 							<a
 								data-sveltekit-preload-data="tap"
-								class="text-2xl py-1.5 text-purple-400 hover:text-purple-600 transition-[color] duration-200"
+								class="text-2xl py-1.5 text-purple-500 dark:text-purple-400 hover:text-purple-600 transition-[color] duration-200"
 								href="/dashboard/groups/{group.id}">{group.name}</a
 							>
 							<div class="flex gap-2">

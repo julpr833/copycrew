@@ -33,7 +33,7 @@
 	class="relative"
 >
 	<button>
-		<a href="/dashboard" class="flex font-bold gap-1 text-purple-300">
+		<a href="/dashboard" class="flex font-bold gap-1 text-purple-500 dark:text-purple-300">
 			Manage
 			<span bind:this={dropdown.dropdownArrow}>
 				<svg
@@ -53,7 +53,7 @@
 
 	{#if dropdown.shown}
 		<div
-			class="absolute z-50 top-8 -left-8 bg-slate-900/80 min-w-[120px] p-2 rounded-md"
+			class="absolute z-50 top-8 -left-8 bg-slate-300 dark:bg-slate-900/80 min-w-[120px] p-2 rounded-md"
 			transition:fade={{ duration: 180 }}
 		>
 			<nav>
@@ -61,9 +61,13 @@
 					<li class="mb-2">
 						<a
 							href="/dashboard/copypastes"
-							class="hover:opacity-80 transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
+							class="hover:opacity-80 text-purple-900 dark:text-white transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
 						>
-							<svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24">
+							<svg
+								class="w-6 h-6 stroke-purple-900 fill-transparent dark:fill-black"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"
@@ -77,9 +81,13 @@
 					<li class="mb-2">
 						<a
 							href="/dashboard/groups"
-							class="hover:opacity-80 transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
+							class="hover:opacity-80 text-purple-900 dark:text-white transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
 						>
-							<svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24">
+							<svg
+								class="w-6 h-6 stroke-purple-900 fill-transparent dark:fill-black"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"
@@ -94,9 +102,13 @@
 						<a
 							href="/logout"
 							data-sveltekit-reload
-							class="hover:opacity-80 transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
+							class="hover:opacity-80 text-purple-900 dark:text-white transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
 						>
-							<svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24">
+							<svg
+								class="w-6 h-6 stroke-purple-900 fill-transparent dark:fill-black"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"

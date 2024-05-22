@@ -43,7 +43,7 @@
 
 <button on:click={deleteGroup.toggleForm} class="text-red-400"
 	><svg
-		class="stroke-white py-0.5 -mx-0.5 hover:stroke-red-500 transition-[stroke] duration-200"
+		class="stroke-black dark:stroke-white py-0.5 -mx-0.5 hover:stroke-red-500 transition-[stroke] duration-200"
 		width="30"
 		height="30"
 		viewBox="0 0 24 24"
@@ -67,7 +67,7 @@
 		class="fixed z-50 top-0 left-0 w-full h-full bg-slate-800/50"
 	>
 		<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-			<div class="bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-t-lg">
+			<div class="bg-purple-950 dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-t-lg">
 				<div class="sm:flex sm:items-start">
 					<div
 						class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
@@ -95,7 +95,7 @@
 			</div>
 
 			<div
-				class="bg-slate-900 px-4 py-3 sm:px-6 flex gap-3 justify-center sm:justify-end text-white"
+				class="bg-violet-800 dark:bg-slate-900 px-4 py-3 sm:px-6 flex gap-3 justify-center sm:justify-end text-white"
 			>
 				<form action="?/deleteGroup" method="POST" use:enhance={handleForm}>
 					<input type="hidden" name="group_id" value={id} />

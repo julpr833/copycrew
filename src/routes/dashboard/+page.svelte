@@ -17,9 +17,11 @@
 		<div class="grid grid-cols-1 gap-4 text-black dark:text-white mt-12 mx-12">
 			<button
 				on:click={() => goto('/dashboard/copypastes')}
-				class="bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
+				class="bg-slate-200 dark:bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
 			>
-				<div class="flex gap-1 items-center text-purple-400 stroke-purple-400">
+				<div
+					class="flex gap-1 items-center text-purple-600 stroke-purple-600 dark:text-purple-400 dark:stroke-purple-400"
+				>
 					<svg
 						width="32"
 						height="32"
@@ -39,13 +41,17 @@
 					</svg>
 					<h3 class="text-xl font-bold font-sans">My copypastes</h3>
 				</div>
-				<p class="mt-4 text-left">View and edit your personal copypastes</p>
+				<p class="mt-4 text-left text-black dark:text-white">
+					View and edit your personal copypastes
+				</p>
 			</button>
 			<button
 				on:click={() => goto('/dashboard/groups')}
-				class="bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
+				class="bg-slate-200 dark:bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
 			>
-				<div class="flex gap-1 items-center text-purple-400 stroke-purple-400">
+				<div
+					class="flex gap-1 items-center text-purple-600 stroke-purple-600 dark:text-purple-400 dark:stroke-purple-400"
+				>
 					<svg
 						width="32"
 						height="32"
@@ -65,12 +71,14 @@
 					</svg>
 					<h3 class="text-xl font-bold font-sans">My groups</h3>
 				</div>
-				<p class="mt-4 text-left">View the copypastes posted in the groups you have joined</p>
+				<p class="mt-4 text-left text-black dark:text-white">
+					View the copypastes posted in the groups you have joined
+				</p>
 			</button>
 		</div>
 		<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-1/2 max-w-2xl mt-8 mb-4" />
 		<div
-			class="bg-slate-800 text-white px-8 md:px-4 md:w-full max-w-md mt-4 mx-4 rounded-lg flex flex-col items-center"
+			class="bg-slate-200 text-black dark:text-white dark:bg-slate-800 px-8 md:px-4 md:w-full max-w-md mt-4 mx-4 rounded-lg flex flex-col items-center"
 		>
 			<h2 class="text-3xl mt-2">Changelog</h2>
 			<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-full my-2" />

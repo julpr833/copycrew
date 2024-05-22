@@ -53,14 +53,14 @@
 
 <button class="h-fit" on:click={createGroup.toggleForm}>
 	<div
-		class="flex flex-col text-center bg-slate-300 dark:bg-slate-900 p-5 h-40 max-w-xl rounded-lg cursor-pointer hover:scale-105 transition-transform duration-300"
+		class="flex flex-col text-center bg-slate-300/70 dark:bg-slate-900 p-5 h-40 max-w-xl rounded-lg cursor-pointer hover:scale-105 transition-transform duration-300"
 	>
 		<h2
 			class="text-purple-600 dark:text-purple-400 text-2xl font-bold flex items-center gap-2 self-center"
 		>
 			<span
 				><svg
-					class="stroke-white"
+					class="stroke-black dark:stroke-white"
 					width="24"
 					height="24"
 					viewBox="0 0 24 24"
@@ -78,7 +78,9 @@
 				</svg></span
 			>Create group
 		</h2>
-		<p class="pt-3">Make a group and share copypastes between you and the members of the group.</p>
+		<p class="pt-3 font-semibold">
+			Make a group and share copypastes between you and the members of the group.
+		</p>
 	</div>
 </button>
 
@@ -89,20 +91,25 @@
 		class="fixed z-10 bg-slate-900/50 h-full w-full top-0 left-0 flex flex-col items-center justify-center"
 	>
 		<div class="max-w-96 w-fit sm:w-full">
-			<div class="bg-slate-950 p-4 rounded-t-lg">
+			<div class="bg-purple-950 text-white dark:bg-slate-950 p-4 rounded-t-lg">
 				<h1 class="text-2xl font-bold">Create a group</h1>
 			</div>
 			<form action="?/create" method="POST" use:enhance={handleForm}>
-				<div class="bg-slate-900 p-4 flex flex-col" transition:slide>
+				<div
+					class="bg-violet-200 text-black dark:text-white dark:bg-slate-900 p-4 flex flex-col"
+					transition:slide
+				>
 					<label for="name" class="text-xs font-medium tracking-wide mb-1.5 pl-2">Group name</label>
 					<input
 						type="text"
 						name="name"
 						placeholder="The crew"
-						class="bg-transparent px-2 py-2.5 border border-slate-400 rounded-xl outline-none focus:border-purple-400 transition-[border-color] duration-200"
+						class="bg-transparent px-2 py-2.5 border border-black placeholder:text-black/80 dark:placeholder:text-slate-400 dark:border-slate-400 rounded-xl outline-none focus:border-violet-900 dark:focus:border-purple-400 transition-[border-color] duration-200"
 					/>
 				</div>
-				<div class="bg-[#0d0f29] p-4 rounded-b-lg flex justify-end gap-3">
+				<div
+					class="bg-purple-950 text-white dark:bg-[#0d0f29] p-4 rounded-b-lg flex justify-end gap-3"
+				>
 					<button
 						disabled={createGroup.creating}
 						class="bg-blue-500 hover:bg-blue-400 transition-[background-color] disabled:bg-slate-400 disabled:border disabled:border-white duration-200 py-1.5 px-2 rounded-md"

@@ -57,7 +57,7 @@
 
 <button class="py-0.5 -mx-2" on:click={renameGroup.toggleForm}>
 	<svg
-		class="stroke-white hover:fill-blue-500 transition-[fill] duration-200"
+		class="stroke-black dark:stroke-white hover:fill-blue-500 transition-[fill] duration-200"
 		width="30"
 		height="30"
 		viewBox="0 0 24 24"
@@ -79,21 +79,24 @@
 		class="text-white fixed z-10 bg-slate-900/50 h-full w-full top-0 left-0 flex flex-col items-center justify-center"
 	>
 		<div class="max-w-96 w-fit sm:w-full">
-			<div class="bg-slate-950 p-4 rounded-t-lg">
+			<div class="bg-purple-950 dark:bg-slate-950 p-4 rounded-t-lg">
 				<h1 class="text-2xl font-bold">Rename group</h1>
 			</div>
 			<form action="?/renameGroup" method="POST" use:enhance={handleForm}>
 				<input type="hidden" name="group_id" value={id} />
-				<div class="bg-slate-900 p-4 flex flex-col" transition:slide>
+				<div
+					class="bg-purple-100 text-black dark:text-white dark:bg-slate-900 p-4 flex flex-col"
+					transition:slide
+				>
 					<label for="name" class="text-xs font-medium tracking-wide mb-1.5 pl-2">Group name</label>
 					<input
 						type="text"
 						name="name"
 						value={name}
-						class="bg-transparent px-2 py-2.5 border border-slate-400 rounded-xl outline-none focus:border-purple-400 transition-[border-color] duration-200"
+						class="bg-transparent px-2 py-2.5 border border-black dark:border-slate-400 rounded-xl outline-none focus:border-purple-400 transition-[border-color] duration-200"
 					/>
 				</div>
-				<div class="bg-[#0d0f29] p-4 rounded-b-lg flex justify-end gap-3">
+				<div class="bg-purple-950 dark:bg-[#0d0f29] p-4 rounded-b-lg flex justify-end gap-3">
 					<button
 						disabled={renameGroup.submitting}
 						class="bg-blue-500 hover:bg-blue-400 transition-[background-color] disabled:bg-slate-400 disabled:border disabled:border-white duration-200 py-1.5 px-2 rounded-md"

@@ -76,7 +76,7 @@
 		<div class="absolute top-12 backdrop-blur-md" transition:blur={{ duration: 200 }}>
 			<form
 				action="?/add"
-				class="flex flex-col bg-slate-950/60 text-white p-6 rounded-md"
+				class="flex flex-col bg-purple-600/60 dark:bg-slate-950/60 text-white p-6 rounded-md"
 				method="POST"
 				use:enhance={({ cancel }) => {
 					if (!addCopypaste.title || !addCopypaste.content) {
@@ -148,7 +148,7 @@
 						id="title"
 						placeholder="Enter the title..."
 						bind:value={addCopypaste.title}
-						class="rounded-md py-1.5 px-2 bg-transparent border border-slate-600 focus:border-purple-400 transition-[border-color] duration-300 outline-none"
+						class="rounded-md py-1.5 px-2 bg-transparent border placeholder:text-purple-50 border-white dark:border-slate-600 focus:border-purple-300 dark:focus:border-purple-400 transition-[border-color] duration-300 outline-none"
 					/>
 				</div>
 				<div class="flex flex-col my-2">
@@ -159,7 +159,7 @@
 						cols="18"
 						rows="8"
 						bind:value={addCopypaste.content}
-						class="rounded-md py-1.5 px-2 bg-transparent border border-slate-600 focus:border-purple-400 transition-[border-color] duration-300 outline-none text-sm"
+						class="rounded-md py-1.5 px-2 bg-transparent border border-white dark:border-slate-600 focus:border-purple-300 dark:focus:border-purple-400 transition-[border-color] duration-300 outline-none text-sm"
 					></textarea>
 				</div>
 				<div class="flex flex-col my-2">
@@ -168,7 +168,7 @@
 						<input
 							type="text"
 							id="categories"
-							class="rounded-md max-w-28 text-sm py-1 px-2 bg-transparent border border-slate-600 focus:border-purple-400 transition-[border-color] duration-300 outline-none"
+							class="rounded-md max-w-28 text-sm py-1 px-2 bg-transparent border border-white dark:border-slate-600 focus:border-purple-300 dark:focus:border-purple-400 transition-[border-color] duration-300 outline-none"
 							bind:value={addCopypaste.categoryInput}
 						/>
 						<button

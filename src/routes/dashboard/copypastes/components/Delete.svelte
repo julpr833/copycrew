@@ -55,7 +55,7 @@
 			<div
 				class="inline-block align-bottom rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
 			>
-				<div class="bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+				<div class="bg-purple-950 dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 					<div class="sm:flex sm:items-start">
 						<div
 							class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
@@ -75,16 +75,20 @@
 							</svg>
 						</div>
 						<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-							<h3 class="text-lg leading-6 font-medium" id="modal-title">
+							<h3 class="text-white text-lg leading-6 font-medium" id="modal-title">
 								Are you sure you want to delete this copypaste?
 							</h3>
 							<div class="mt-2">
-								<p class="text-sm text-gray-400">This action cannot be undone.</p>
+								<p class="text-sm text-gray-200 dark:text-gray-400">
+									This action cannot be undone.
+								</p>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="bg-[#122037] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3">
+				<div
+					class="bg-purple-100 dark:bg-[#122037] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3"
+				>
 					<form
 						action="?/delete"
 						method="POST"
@@ -114,7 +118,7 @@
 						<button
 							type="submit"
 							disabled={isDeleting}
-							class="border border-white disabled:bg-slate-700 enabled:hover:bg-white enabled:transition-[background-color, color] duration-200 enabled:hover:text-black py-1.5 px-2 rounded-md"
+							class="bg-red-500 text-white hover:bg-red-400 disabled:bg-slate-700 enabled:transition-[background-color] duration-200 py-1.5 px-2 rounded-md"
 						>
 							{#if !isDeleting}
 								Confirm
@@ -138,7 +142,7 @@
 					<button
 						type="button"
 						on:click={() => (showModal = false)}
-						class="bg-red-500 hover:bg-red-400 transition-[background-color] duration-200 py-1.5 px-2 rounded-md"
+						class="border border-black dark:border-white bg-transparent text-black dark:text-white hover:text-white dark:hover:text-black hover:bg-black dark:hover:bg-white transition-[color, background-color] duration-200 py-1.5 px-2 rounded-md"
 					>
 						Cancel
 					</button>
