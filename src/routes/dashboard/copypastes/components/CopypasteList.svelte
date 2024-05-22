@@ -23,7 +23,7 @@
 
 			{#if copypastes.length === 0}
 				<h2
-					class="text-transparent text-balance bg-gradient-to-r from-violet-800 dark:from-blue-200 via-violet-400 dark:via-purple-300 to-purple-900 dark:to-purple-600 bg-clip-text text-xl md:text-2xl font-bold max-w-xl text-center mt-12"
+					class="text-transparent text-balance bg-gradient-to-r from-violet-800 dark:from-blue-200 via-violet-400 dark:via-purple-300 to-purple-900 dark:to-purple-600 bg-clip-text text-xl md:text-2xl mx-4 font-bold max-w-xl text-center mt-12"
 				>
 					You have no copypastes yet, press the add button to create one.
 				</h2>
