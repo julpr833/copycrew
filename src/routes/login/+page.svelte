@@ -24,7 +24,6 @@
 					type="email"
 					name="email"
 					id="email"
-					pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
 					required
 					class="rounded-md w-72 p-2 bg-transparent border border-black dark:border-white focus:outline-none text-sm"
 				/>
