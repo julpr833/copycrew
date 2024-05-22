@@ -64,7 +64,7 @@
 							class="hover:opacity-80 text-purple-900 dark:text-white transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
 						>
 							<svg
-								class="w-6 h-6 stroke-purple-900 fill-transparent dark:fill-black"
+								class="w-6 h-6 stroke-purple-900 fill-transparent dark:fill-purple-400"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
 							>
@@ -84,7 +84,7 @@
 							class="hover:opacity-80 text-purple-900 dark:text-white transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
 						>
 							<svg
-								class="w-6 h-6 stroke-purple-900 fill-transparent dark:fill-black"
+								class="w-6 h-6 stroke-purple-900 fill-transparent dark:fill-purple-400"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
 							>
@@ -105,7 +105,7 @@
 							class="hover:opacity-80 text-purple-900 dark:text-white transition-opacity duration-300 hover:text-[#583d7c] dark:hover:text-[#cdaff5] font-semibold flex gap-2"
 						>
 							<svg
-								class="w-6 h-6 stroke-purple-900 fill-transparent dark:fill-black"
+								class="w-6 h-6 stroke-purple-900 fill-transparent dark:fill-purple-400"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
 							>

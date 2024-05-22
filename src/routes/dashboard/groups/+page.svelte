@@ -39,7 +39,7 @@
 		{#if groups}
 			{#if groups.length < 1}
 				<h1
-					class="text-transparent text-center font-bold text-lg md:text-2xl bg-gradient-to-r from-purple-800 dark:from-blue-200 via-violet-500 dark:via-purple-300 to-purple-500 bg-clip-text mx-3"
+					class="text-transparent text-center font-bold text-lg md:text-2xl bg-gradient-to-r from-purple-800 dark:from-blue-200 via-violet-500 dark:via-purple-300 to-purple-900 dark:to-purple-500 bg-clip-text mx-3"
 				>
 					You are not a member of any groups yet, create or join one!
 				</h1>
