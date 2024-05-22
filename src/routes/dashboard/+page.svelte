@@ -10,8 +10,10 @@
 </svelte:head>
 
 <section id="dashboard">
-	<div class="flex flex-col w-full items-center mb-8">
-		<h2 class="text-black dark:text-white font-bold text-wrap max-w-full text-3xl mt-12 mx-12">
+	<div class="flex flex-col w-full justify-center items-center mb-8">
+		<h2
+			class="text-black dark:text-white font-bold text-wrap max-w-full text-md md:text-2xl lg:text-3xl mt-12 mx-4"
+		>
 			Welcome, <span class="text-purple-500">{data.user.email}</span>, what do you want to do today?
 		</h2>
 		<div class="grid grid-cols-1 gap-4 text-black dark:text-white mt-12 mx-12">
