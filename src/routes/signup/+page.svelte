@@ -51,7 +51,6 @@
 					type="email"
 					name="email-confirmation"
 					id="email-confirmation"
-					pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
 					autocomplete="off"
 					required
 					class="rounded-md w-72 p-2 bg-transparent border border-black dark:border-white focus:outline-none text-sm"
