@@ -2,6 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import Kick from './Kick.svelte';
+	import Ban from './Ban.svelte';
 
 	export let group;
 
@@ -60,24 +61,7 @@
 						<p>{member.id.username}</p>
 						{#if $page.data.user.id === group.admin_id && member.user_id !== group.admin_id}
 							<div class="flex items-center gap-1.5">
-								<button
-									class="text-sm font-medium flex items-center gap-1 py-1 px-1.5 bg-red-500 rounded-md hover:bg-red-300 transition-[background-color] duration-200"
-								>
-									<svg
-										class="stroke-white fill-none"
-										width="20"
-										height="20"
-										viewBox="0 0 24 24"
-										stroke-width="2.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
-										<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-										<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-										<path d="M5.7 5.7l12.6 12.6" />
-									</svg>
-									Ban
-								</button>
+								<Ban {member} />
 								<Kick {member} />
 							</div>
 						{/if}

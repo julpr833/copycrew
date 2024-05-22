@@ -7,22 +7,22 @@
 
 	export let member;
 
-	const kickMember = {
+	const banMember = {
 		showForm: false,
-		toggleForm: () => (kickMember.showForm = !kickMember.showForm),
+		toggleForm: () => (banMember.showForm = !banMember.showForm),
 
 		submitting: false
 	};
 
 	const handleForm: SubmitFunction = async ({ cancel, formData }) => {
-		kickMember.submitting = true;
+		banMember.submitting = true;
 		return async ({ result, update }) => {
-			kickMember.submitting = false;
+			banMember.submitting = false;
 			switch (result.type) {
 				case 'success':
 					await update();
 					applyAction(result);
-					kickMember.showForm = false;
+					banMember.showForm = false;
 					toasts.success('Member kicked');
 					break;
 				case 'error':
@@ -38,29 +38,26 @@
 
 <button
 	type="button"
-	on:click={kickMember.toggleForm}
+	on:click={banMember.toggleForm}
 	class="text-sm font-medium flex items-center gap-1 py-1 px-1.5 bg-red-500 rounded-md hover:bg-red-300 transition-[background-color] duration-200"
-	><svg
+>
+	<svg
 		class="stroke-white fill-none"
 		width="20"
 		height="20"
 		viewBox="0 0 24 24"
 		stroke-width="2.5"
-		stroke="#000000"
-		fill="none"
 		stroke-linecap="round"
 		stroke-linejoin="round"
 	>
 		<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-		<path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-		<path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
-		<path d="M22 22l-5 -5" />
-		<path d="M17 22l5 -5" />
+		<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+		<path d="M5.7 5.7l12.6 12.6" />
 	</svg>
-	Kick</button
->
+	Ban
+</button>
 
-{#if kickMember.showForm}
+{#if banMember.showForm}
 	<div
 		transition:fade={{ duration: 180 }}
 		class="fixed z-50 top-0 left-0 w-full h-full bg-slate-800/50"
@@ -82,12 +79,14 @@
 					</div>
 					<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
 						<h3 class="text-white text-lg leading-6 font-medium" id="modal-title">
-							Are you sure you want to kick <span class="text-purple-300">{member.id.username}</span
+							Are you sure you want to permanently ban <span class="text-purple-300"
+								>{member.id.username}</span
 							>?
 						</h3>
 						<div class="mt-2">
 							<p class="text-sm text-gray-400">
-								All the information related to him will be deleted.
+								All the information related to him will be deleted. He won't be able to join this
+								group again
 							</p>
 						</div>
 					</div>
@@ -97,14 +96,14 @@
 			<div
 				class="bg-slate-900 px-4 py-3 sm:px-6 flex gap-3 justify-center sm:justify-end text-white"
 			>
-				<form action="?/kickMember" method="POST" use:enhance={handleForm}>
+				<form action="?/banMember" method="POST" use:enhance={handleForm}>
 					<input type="hidden" name="member_id" value={member.user_id} />
 					<input type="hidden" name="group_id" value={member.group_id} />
 					<button
 						type="submit"
-						disabled={kickMember.submitting}
+						disabled={banMember.submitting}
 						class="bg-red-500 hover:bg-red-400 transition-[background-color] disabled:bg-slate-400 disabled:border disabled:border-white duration-200 py-1.5 px-2 rounded-md"
-						>{#if !kickMember.submitting}Kick{:else}
+						>{#if !banMember.submitting}Ban{:else}
 							<svg
 								class="stroke-white spin"
 								width="24"
@@ -124,7 +123,7 @@
 				<button
 					type="button"
 					class="py-1.5 px-2 rounded-md border border-white hover:bg-white hover:text-black transition-[background-color, color] duration-200"
-					on:click={() => (kickMember.showForm = false)}
+					on:click={() => (banMember.showForm = false)}
 				>
 					Cancel
 				</button>

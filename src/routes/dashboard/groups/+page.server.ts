@@ -165,6 +165,17 @@ export const actions = {
 			return error(400, { message: 'Invalid invite code' });
 		}
 
+		const banned = await db.groupBans.findUnique({
+			where: {
+				user_id_group_id: {
+					user_id: userId,
+					group_id: group.id
+				}
+			}
+		});
+
+		if (banned) return error(400, { message: 'You have been banned from this group' });
+
 		try {
 			await db.groupMember.create({
 				data: {
@@ -269,6 +280,55 @@ export const actions = {
 			});
 		} catch {
 			return error(500, { message: 'Failed to kick member' });
+		}
+	},
+
+	banMember: async ({ request, locals }) => {
+		const userId = locals.user.id;
+		const data = await request.formData();
+		const memberId = data.get('member_id')?.toString();
+		const groupId = data.get('group_id')?.toString();
+
+		if (!memberId || !groupId)
+			return error(400, { message: 'Member ID and group ID are required' });
+
+		if (userId === memberId) return error(400, { message: 'You cannot ban yourself' });
+
+		let group = null;
+
+		try {
+			group = await db.group.findUnique({
+				where: {
+					id: +groupId
+				}
+			});
+		} catch {
+			return error(400, { message: 'Invalid group ID' });
+		}
+
+		if (!group) return error(400, { message: 'Group not found' });
+
+		if (group.admin_id === memberId)
+			return error(400, { message: 'You cannot ban the group admin' });
+
+		try {
+			await db.groupMember.delete({
+				where: {
+					user_id_group_id: {
+						user_id: memberId,
+						group_id: +groupId
+					}
+				}
+			});
+
+			await db.groupBans.create({
+				data: {
+					user_id: memberId,
+					group_id: +groupId
+				}
+			});
+		} catch {
+			return error(500, { message: 'Failed to ban member' });
 		}
 	}
 };

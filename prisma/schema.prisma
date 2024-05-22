@@ -22,6 +22,7 @@ model User {
   Copypaste Copypaste[]
   groups    GroupMember[]
   Group     Group[]
+  GroupBans GroupBans[]
 }
 
 model Copypaste {
@@ -48,9 +49,19 @@ model Group {
 
   copypastes Copypaste[]
   members    GroupMember[]
+  GroupBans  GroupBans[]
 }
 
 model GroupMember {
+  id       User   @relation(fields: [user_id], references: [id])
+  user_id  String
+  gid      Group  @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  group_id Int
+
+  @@unique([user_id, group_id])
+}
+
+model GroupBans {
   id       User   @relation(fields: [user_id], references: [id])
   user_id  String
   gid      Group  @relation(fields: [group_id], references: [id], onDelete: Cascade)
