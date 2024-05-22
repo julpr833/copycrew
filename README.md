@@ -1,6 +1,6 @@
-<div style="display:flex; justify-content:center;">
+<div align="center">
 
-![logo](https://i.imgur.com/ki8JkMO.png)
+![logo](https://i.imgur.com/c5xdHeK.png)
 
 </div>
 
