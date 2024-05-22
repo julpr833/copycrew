@@ -28,7 +28,8 @@
 		aria-label="mobile-menu-button"
 		id="mobile-menu--button"
 		on:click={() => (showSidebar = !showSidebar)}
-		class="hover:opacity-80 transition-opacity duration-300 absolute h-4 z-20 right-1"
+		class={(showSidebar ? `fixed ` : `absolute `) +
+			`hover:opacity-80 transition-opacity duration-300 h-4 z-20 right-1`}
 	>
 		{#key showSidebar}
 			<svg
@@ -59,7 +60,7 @@
 	{#if showSidebar === true}
 		<aside
 			transition:slide={{ duration: 100, axis: 'x' }}
-			class="bg-slate-700 min-w-48 text-white dark:bg-slate-900 absolute top-0 right-0 z-10 h-full"
+			class="bg-slate-700 min-w-48 text-white dark:bg-slate-900 fixed top-0 right-0 z-10 h-full"
 		>
 			<ul class="mt-16 mx-6 flex flex-col items-start font-bold text-nowrap">
 				{#if !user}
