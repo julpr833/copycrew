@@ -55,8 +55,8 @@
 								href="/dashboard/groups/{group.id}">{group.name}</a
 							>
 							<div class="flex gap-2">
+								<CopyInvite inviteCode={group.inviteCode} />
 								{#if data.user.id === group.admin_id}
-									<CopyInvite inviteCode={group.inviteCode} />
 									<Delete id={group.id} />
 									<Edit name={group.name} id={group.id} />
 								{/if}
