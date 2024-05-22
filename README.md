@@ -1,38 +1,31 @@
-# create-svelte
+<div style="display:flex; justify-content:center;">
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+![logo](https://i.imgur.com/ki8JkMO.png)
 
-## Creating a project
+</div>
 
-If you're seeing this, you've probably already done this step. Congrats!
+## About
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+This is a website intended to save copypastes for Twitch Chatters, with the posibility of saving personal copypastes and creating groups to share them with your friends.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Dependencies
 
-## Developing
+- Made with Svelte.
+- Toasts thanks to svelte-toasts
+- Encription using bcrypt
+- PostgreSQL
+- Prisma
+- nanoid for Invite codes
+- json-web-token for session storage
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Installation
 
-```bash
-npm run dev
+Clone the repo, install the dependencies using your preferred package manager. Remember to have PostgreSQL database set. You can do this with prisma
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
+Example:
 
 ```bash
-npm run build
+ git clone https://github.com/julpr833/copycrew
+ bun install
+ bun run dev
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
