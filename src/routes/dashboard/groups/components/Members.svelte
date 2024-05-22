@@ -14,7 +14,7 @@
 	};
 
 	const memberList: MemberList = {
-		showList: true,
+		showList: false,
 		toggleList: () => (memberList.showList = !memberList.showList),
 
 		memberCount: group.members.length
