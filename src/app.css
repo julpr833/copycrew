@@ -7,7 +7,6 @@
 body {
 	overflow-x: hidden;
 	font-family: 'Inter', sans-serif;
-	background-color: rgb(226 232 240);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +20,12 @@ body {
 		);
 		background-size: 400% 400%;
 		animation: 17s ease infinite backgroundAnimation;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: rgb(226 232 240);
 	}
 }
 
