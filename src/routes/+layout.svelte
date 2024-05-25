@@ -9,7 +9,7 @@
 </script>
 
 <nav
-	class="dark:text-white dark:bg-gradient-to-r from-[#252435] to-[#131f31] p-3 flex justify-center min-w-full"
+	class="bg-slate-200 dark:text-white dark:bg-gradient-to-r from-[#252435] to-[#131f31] p-3 flex justify-center min-w-full"
 >
 	<div class="flex flex-row items-center justify-between xl:min-w-[60%] md:min-w-full">
 		<NavbarLogo />

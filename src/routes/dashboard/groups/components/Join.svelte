@@ -92,7 +92,7 @@
 	>
 		<div class="max-w-md">
 			<form action="?/join" method="POST" use:enhance={handleForm}>
-				<div class="flex bg-purple-950 dark:bg-slate-900 p-4 rounded-t-lg">
+				<div class="flex bg-[#3B234F] dark:bg-slate-900 p-4 rounded-t-lg">
 					<div
 						class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-white dark:bg-yellow-100 sm:mx-0 sm:h-10 sm:w-10"
 					>
@@ -116,20 +116,20 @@
 					</div>
 				</div>
 				<div
-					class="flex flex-col justify-center bg-violet-200 dark:bg-slate-800 px-4 pt-4 pb-4 sm:p-5 sm:pb-3"
+					class="flex flex-col justify-center bg-slate-400 dark:bg-slate-800 px-4 pt-4 pb-4 sm:p-5 sm:pb-3"
 					transition:slide
 				>
 					<input
 						name="inviteCode"
 						type="text"
-						class="bg-transparent border placeholder:text-black/80 dark:placeholder:text-slate-400 border-black dark:border-slate-400 outline-none focus:border-orange-400 transition-[border-color] duration-200 p-2 rounded-lg min-w-full"
+						class=" font-bold dark:font-normal bg-transparent border placeholder:text-black/80 dark:placeholder:text-slate-400 border-black dark:border-slate-400 outline-none focus:border-orange-400 transition-[border-color] duration-200 p-2 rounded-lg min-w-full"
 						placeholder="Invite code"
 					/>
 					{#if joinGroup.errorMessage}
 						<p class="text-xs px-2 pt-2 text-red-500" transition:slide>{joinGroup.errorMessage}</p>
 					{/if}
 				</div>
-				<div class="flex gap-2 bg-purple-950 dark:bg-slate-900 p-4 rounded-b-lg">
+				<div class="flex gap-2 bg-[#3B234F] dark:bg-slate-900 p-4 rounded-b-lg">
 					<button
 						type="submit"
 						disabled={joinGroup.submitting}

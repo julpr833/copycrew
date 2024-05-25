@@ -91,24 +91,26 @@
 		class="fixed z-10 bg-slate-900/50 h-full w-full top-0 left-0 flex flex-col items-center justify-center"
 	>
 		<div class="max-w-96 w-fit sm:w-full">
-			<div class="bg-purple-950 text-white dark:bg-slate-950 p-4 rounded-t-lg">
+			<div class="bg-[#3B234F] text-white dark:bg-slate-950 p-4 rounded-t-lg">
 				<h1 class="text-2xl font-bold">Create a group</h1>
 			</div>
 			<form action="?/create" method="POST" use:enhance={handleForm}>
 				<div
-					class="bg-violet-200 text-black dark:text-white dark:bg-slate-900 p-4 flex flex-col"
+					class="bg-slate-400 text-black dark:text-white dark:bg-slate-900 p-4 flex flex-col"
 					transition:slide
 				>
-					<label for="name" class="text-xs font-medium tracking-wide mb-1.5 pl-2">Group name</label>
+					<label for="name" class="text-xs font-bold dark:font-medium tracking-wide mb-1.5 pl-2"
+						>Group name</label
+					>
 					<input
 						type="text"
 						name="name"
 						placeholder="The crew"
-						class="bg-transparent px-2 py-2.5 border border-black placeholder:text-black/80 dark:placeholder:text-slate-400 dark:border-slate-400 rounded-xl outline-none focus:border-violet-900 dark:focus:border-purple-400 transition-[border-color] duration-200"
+						class="bg-transparent px-2 py-2.5 font-bold dark:font-normal border border-black placeholder:text-black/80 dark:placeholder:text-slate-400 dark:border-slate-400 rounded-xl outline-none focus:border-violet-900 dark:focus:border-purple-400 transition-[border-color] duration-200"
 					/>
 				</div>
 				<div
-					class="bg-purple-950 text-white dark:bg-[#0d0f29] p-4 rounded-b-lg flex justify-end gap-3"
+					class="bg-[#3B234F] text-white dark:bg-[#0d0f29] p-4 rounded-b-lg flex justify-end gap-3"
 				>
 					<button
 						disabled={createGroup.creating}

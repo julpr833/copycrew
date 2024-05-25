@@ -76,7 +76,7 @@
 		<div class="absolute top-12 backdrop-blur-md" transition:blur={{ duration: 200 }}>
 			<form
 				action="?/add"
-				class="flex flex-col bg-purple-600/60 dark:bg-slate-950/60 text-white p-6 rounded-md"
+				class="flex flex-col bg-[#3B234F]/80 dark:bg-slate-950/60 text-white p-6 rounded-md"
 				method="POST"
 				use:enhance={({ cancel }) => {
 					if (!addCopypaste.title || !addCopypaste.content) {

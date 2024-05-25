@@ -82,7 +82,7 @@
 			<div
 				class="inline-block align-bottom rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
 			>
-				<div class="bg-purple-900 dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+				<div class="bg-[#3B234F] dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 					<div class="sm:flex sm:items-start">
 						<div
 							class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10"
@@ -111,7 +111,7 @@
 					</div>
 				</div>
 				<div
-					class="bg-purple-300 dark:bg-[#152642] px-4 py-3 sm:px-6 flex justify-center"
+					class="bg-slate-400 dark:bg-[#152642] px-4 py-3 sm:px-6 flex justify-center"
 					transition:slide
 				>
 					<form
@@ -278,7 +278,7 @@
 					</form>
 				</div>
 				<div
-					class="bg-purple-950 dark:bg-[#0e1b31] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3"
+					class="bg-[#3B234F] dark:bg-[#0e1b31] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3"
 				>
 					<button
 						type="submit"

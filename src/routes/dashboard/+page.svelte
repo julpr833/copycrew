@@ -12,17 +12,17 @@
 <section id="dashboard">
 	<div class="flex flex-col w-full justify-center items-center mb-8">
 		<h2
-			class="text-black dark:text-white font-bold text-wrap max-w-full text-md md:text-2xl lg:text-3xl mt-12 mx-4"
+			class="text-black/70 dark:text-white font-bold text-wrap max-w-full text-md md:text-2xl lg:text-3xl mt-12 mx-4"
 		>
-			Welcome, <span class="text-purple-500">{data.user.email}</span>, what do you want to do today?
+			Welcome, <span class="text-purple-900">{data.user.email}</span>, what do you want to do today?
 		</h2>
-		<div class="grid grid-cols-1 gap-4 text-black dark:text-white mt-12 mx-12">
+		<div class="grid grid-cols-1 gap-4 text-black/70 dark:text-white mt-12 mx-12">
 			<button
 				on:click={() => goto('/dashboard/copypastes')}
-				class="bg-slate-200 dark:bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
+				class="bg-slate-300 dark:bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
 			>
 				<div
-					class="flex gap-1 items-center text-purple-600 stroke-purple-600 dark:text-purple-400 dark:stroke-purple-400"
+					class="flex gap-1 items-center text-purple-800 stroke-purple-800 dark:text-purple-400 dark:stroke-purple-400"
 				>
 					<svg
 						width="32"
@@ -43,16 +43,16 @@
 					</svg>
 					<h3 class="text-xl font-bold font-sans">My copypastes</h3>
 				</div>
-				<p class="mt-4 text-left text-black dark:text-white">
+				<p class="mt-4 text-left font-bold text-black/70 dark:text-white">
 					View and edit your personal copypastes
 				</p>
 			</button>
 			<button
 				on:click={() => goto('/dashboard/groups')}
-				class="bg-slate-200 dark:bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
+				class="bg-slate-300 dark:bg-slate-900 col-span-2 md:col-span-1 p-8 rounded-lg cursor-pointer transition-transform hover:scale-105 duration-300"
 			>
 				<div
-					class="flex gap-1 items-center text-purple-600 stroke-purple-600 dark:text-purple-400 dark:stroke-purple-400"
+					class="flex gap-1 items-center text-purple-800 stroke-purple-800 dark:text-purple-400 dark:stroke-purple-400"
 				>
 					<svg
 						width="32"
@@ -73,18 +73,18 @@
 					</svg>
 					<h3 class="text-xl font-bold font-sans">My groups</h3>
 				</div>
-				<p class="mt-4 text-left text-black dark:text-white">
+				<p class="mt-4 text-left font-bold text-black/70 dark:text-white">
 					View the copypastes posted in the groups you have joined
 				</p>
 			</button>
 		</div>
 		<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-1/2 max-w-2xl mt-8 mb-4" />
 		<div
-			class="bg-slate-200 text-black dark:text-white dark:bg-slate-800 shadow-md shadow-black/50 px-8 md:px-4 md:w-full max-w-md mt-4 mx-4 rounded-lg flex flex-col items-center"
+			class="bg-slate-300 text-black/70 dark:text-white dark:bg-slate-800 shadow-md shadow-black/50 px-8 md:px-4 md:w-full max-w-md mt-4 mx-4 rounded-lg flex flex-col items-center"
 		>
 			<h2 class="text-3xl mt-2">Changelog</h2>
 			<hr class="border-t-[1.5px] border-gray-700 dark:border-gray-500 w-full my-2" />
-			<ul class="self-baseline mx-8 mt-2 mb-4 font-mono">
+			<ul class="self-baseline mx-8 mt-2 mb-4 font-mono font-bold">
 				<li class="before:content-['>'] before:mr-2">admins can now ban members</li>
 				<li class="before:content-['>'] before:mr-2">admins can now kick members</li>
 				<li class="before:content-['>'] before:mr-2">you can now leave groups</li>

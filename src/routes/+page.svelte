@@ -7,9 +7,9 @@
 	<title>Copycrew</title>
 </svelte:head>
 
-<section id="hero" class="flex justify-center items-center md:h-[85dvh] my-8">
+<section id="hero" class="flex justify-center items-center md:h-[85dvh]">
 	<div class="flex flex-col-reverse lg:flex-row items-center gap-8 mx-8">
-		<div class="text-black dark:text-white max-w-xl mx-4 md:mx-0">
+		<div class="text-black/65 dark:text-white max-w-xl mx-4 md:mx-0">
 			<h2 class="text-2xl md:text-4xl font-bold">
 				Save your <span class="text-[#583d7c] dark:text-[#cdaff5]">copypastes</span>, build your
 				arsenal, and spread chaos on Twitch chats

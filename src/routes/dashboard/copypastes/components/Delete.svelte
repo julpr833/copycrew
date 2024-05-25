@@ -55,7 +55,7 @@
 			<div
 				class="inline-block align-bottom rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
 			>
-				<div class="bg-purple-950 dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+				<div class="bg-[#3B234F] dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 					<div class="sm:flex sm:items-start">
 						<div
 							class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
@@ -87,7 +87,7 @@
 					</div>
 				</div>
 				<div
-					class="bg-purple-100 dark:bg-[#122037] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3"
+					class="bg-[#3B234F] dark:bg-[#122037] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3"
 				>
 					<form
 						action="?/delete"
@@ -142,7 +142,7 @@
 					<button
 						type="button"
 						on:click={() => (showModal = false)}
-						class="border border-black dark:border-white bg-transparent text-black dark:text-white hover:text-white dark:hover:text-black hover:bg-black dark:hover:bg-white transition-[color, background-color] duration-200 py-1.5 px-2 rounded-md"
+						class="border border-white bg-transparent text-white hover:text-black hover:bg-white transition-[color, background-color] duration-200 py-1.5 px-2 rounded-md"
 					>
 						Cancel
 					</button>

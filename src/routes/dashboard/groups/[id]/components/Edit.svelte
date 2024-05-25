@@ -126,7 +126,7 @@
 	>
 		<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
 			<form action="?/edit" method="POST" use:enhance={handleForm}>
-				<div class="bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-t-lg">
+				<div class="bg-[#3B234F] dark:bg-slate-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-t-lg">
 					<div class="sm:flex sm:items-center">
 						<div
 							class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10"
@@ -146,13 +146,18 @@
 							</svg>
 						</div>
 						<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-							<h3 class="text-white text-lg leading-6 font-medium text-balance" id="modal-title">
+							<h3
+								class="text-black dark:text-white text-lg leading-6 font-medium text-balance"
+								id="modal-title"
+							>
 								You are currently editing <span class="text-purple-300">"{copypaste.title}"</span>
 							</h3>
 						</div>
 					</div>
 				</div>
-				<div class="bg-[#152642] px-4 py-3 sm:px-6 flex flex-col text-white justify-center">
+				<div
+					class="bg-slate-400 dark:bg-[#152642] px-4 py-3 sm:px-6 flex flex-col text-black dark:text-white justify-center"
+				>
 					<input type="hidden" name="id" value={copypaste.id} />
 					<input type="hidden" name="group_id" value={group_id} />
 					<div class="flex flex-col mb-4">
@@ -165,7 +170,7 @@
 							name="title"
 							id="title"
 							value={copypaste.title}
-							class="rounded-md w-72 p-2 bg-transparent border border-black dark:border-white text-purple-200 focus:outline-none text-md font-semibold focus:border-purple-400 transition-[border-color] duration-200"
+							class="rounded-md w-72 p-2 bg-transparent border border-black dark:border-white text-purple-900 dark:text-purple-200 focus:outline-none text-md font-semibold focus:border-purple-400 transition-[border-color] duration-200"
 						/>
 					</div>
 
@@ -242,12 +247,12 @@
 					<input type="hidden" name="categories" value={JSON.stringify(editCopypaste.categories)} />
 				</div>
 				<div
-					class="bg-[#122037] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3 rounded-b-lg"
+					class="bg-[#3B234F] dark:bg-[#122037] px-4 py-3 sm:px-6 flex justify-center sm:justify-end gap-3 rounded-b-lg"
 				>
 					<button
 						type="submit"
 						disabled={editCopypaste.submitting}
-						class="text-white border border-white bg-blue-500 disabled:bg-slate-700 enabled:hover:bg-white enabled:transition-[background-color, color] duration-200 enabled:hover:text-black py-1.5 px-2 rounded-md"
+						class="text-black dark:text-white border border-white bg-blue-500 disabled:bg-slate-700 enabled:hover:bg-white enabled:transition-[background-color, color] duration-200 enabled:hover:text-black py-1.5 px-2 rounded-md"
 					>
 						{#if !editCopypaste.submitting}Edit{:else}
 							<svg
@@ -268,7 +273,7 @@
 					<button
 						on:click={editCopypaste.toggleForm}
 						type="button"
-						class="text-white bg-red-500 disabled:bg-slate-700 enabled:hover:bg-white enabled:transition-[background-color, color] duration-200 enabled:hover:text-black py-1.5 px-2 rounded-md"
+						class="text-black dark:text-black dark:text-white bg-red-500 disabled:bg-slate-700 enabled:hover:bg-white enabled:transition-[background-color, color] duration-200 enabled:hover:text-black py-1.5 px-2 rounded-md"
 					>
 						Cancel
 					</button>

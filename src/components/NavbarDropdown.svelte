@@ -33,7 +33,7 @@
 	class="relative"
 >
 	<button>
-		<a href="/dashboard" class="flex font-bold gap-1 text-purple-500 dark:text-purple-300">
+		<a href="/dashboard" class="flex font-bold gap-1 text-purple-800 dark:text-purple-300">
 			Manage
 			<span bind:this={dropdown.dropdownArrow}>
 				<svg

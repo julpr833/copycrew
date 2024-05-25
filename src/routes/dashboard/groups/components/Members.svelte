@@ -48,7 +48,7 @@
 		class="fixed z-10 bg-slate-900/50 h-full w-full top-0 left-0 flex flex-col items-center justify-center"
 	>
 		<div class="min-w-80 max-w-md">
-			<div class="bg-purple-600 dark:bg-slate-900 px-4 py-5 rounded-t-lg">
+			<div class="bg-[#3B234F] dark:bg-slate-900 px-4 py-5 rounded-t-lg">
 				<h3 class="text-purple-200 tracking-wide text-2xl text-center font-semibold">
 					{group.name}
 				</h3>
@@ -56,7 +56,7 @@
 			<div>
 				{#each group.members as member}
 					<div
-						class="bg-purple-300 dark:bg-slate-800 px-6 py-3 flex justify-between gap-1 items-center font-sans text-slate-700 dark:text-white border-b border-b-slate-600/30"
+						class="bg-slate-400 dark:bg-slate-800 px-6 py-3 flex justify-between gap-1 items-center font-sans text-slate-700 dark:text-white border-b border-b-slate-600/30"
 					>
 						<p>{member.id.username}</p>
 						{#if $page.data.user.id === group.admin_id && member.user_id !== group.admin_id}
@@ -68,7 +68,7 @@
 					</div>
 				{/each}
 			</div>
-			<div class="flex justify-center bg-purple-600 dark:bg-slate-900 px-2 py-1.5 rounded-b-lg">
+			<div class="flex justify-center bg-[#3B234F] dark:bg-slate-900 px-2 py-1.5 rounded-b-lg">
 				<button
 					on:click={() => (memberList.showList = false)}
 					class="bg-purple-900 dark:bg-slate-700 hover:bg-red-800 transition-[background-color] duration-200 text-white font-bold py-1 px-2.5 rounded"

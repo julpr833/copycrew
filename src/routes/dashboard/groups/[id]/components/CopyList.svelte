@@ -13,9 +13,9 @@
 		{/each}
 	{:else}
 		<h2
-			class="text-transparent bg-gradient-to-r from-blue-200 via-purple-300 to-purple-600 bg-clip-text text-xl md:text-2xl font-bold max-w-xl text-center mx-4"
+			class="text-transparent bg-gradient-to-r from-blue-500 via-purple-700 to-purple-800 bg-clip-text text-xl md:text-2xl font-bold max-w-xl text-center mx-4"
 		>
-			This groups does not have any copypastes yet, press the add button to create one.
+			This group does not have any copypastes yet, press the add button to create one.
 		</h2>
 	{/if}
 </div>

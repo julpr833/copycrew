@@ -32,7 +32,7 @@
 	class="w-[21rem] shadow-[0px_4px_4px_rgba(0,0,0,0.8)] rounded-lg transition-[box-shadow, transform] duration-200"
 	bind:this={copypasteElement}
 >
-	<div class="bg-slate-900 rounded-t-lg p-2">
+	<div class="bg-[#3B234F] dark:bg-slate-900 rounded-t-lg p-2">
 		<div class="flex justify-between">
 			<div>
 				<!-- Copypaste name -->
@@ -53,7 +53,7 @@
 		</p>
 	</div>
 	<button
-		class="flex bg-slate-800 min-w-full"
+		class="flex bg-slate-400 dark:bg-slate-800 min-w-full"
 		on:click={copyText}
 		on:mouseover={() => copypasteElement?.classList.add('hovered-copypaste')}
 		on:mouseleave={() => copypasteElement?.classList.remove('hovered-copypaste')}
@@ -61,11 +61,13 @@
 		on:blur={() => copypasteElement?.classList.remove('hovered-copypaste')}
 	>
 		<!-- Content -->
-		<p class="max-w-[21rem] text-white break-words text-balance text-sm p-2 text-left">
+		<p
+			class="max-w-[21rem] text-slate-800 font-bold dark:text-white break-words text-balance text-sm p-2 text-left"
+		>
 			{copypaste.content}
 		</p>
 	</button>
-	<div class="bg-slate-900 rounded-b-lg">
+	<div class="bg-[#3B234F] dark:bg-slate-900 rounded-b-lg">
 		<!-- Categories -->
 		<p class="text-purple-200 text-xs mx-2 py-1">{copypaste.categories.join(', ')}</p>
 	</div>
