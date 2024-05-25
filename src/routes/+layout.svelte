@@ -1,10 +1,9 @@
 <script lang="ts">
+	import '../app.css';
 	import NavbarLogo from '../components/NavbarLogo.svelte';
 	import NavbarDropdown from '../components/NavbarDropdown.svelte';
 	import NavbarMobileMenu from '../components/NavbarMobileMenu.svelte';
-	import '../app.css';
 	import { FlatToast, ToastContainer } from 'svelte-toasts';
-
 	export let data;
 </script>
 
